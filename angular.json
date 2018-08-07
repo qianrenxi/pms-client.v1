@@ -2,12 +2,194 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "pms-web": {
+      "root": "apps/pms-web/",
+      "sourceRoot": "apps/pms-web/src",
+      "projectType": "application",
+      "prefix": "pms",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/pms-web",
+            "index": "apps/pms-web/src/index.html",
+            "main": "apps/pms-web/src/main.ts",
+            "polyfills": "apps/pms-web/src/polyfills.ts",
+            "tsConfig": "apps/pms-web/tsconfig.app.json",
+            "assets": [
+              "apps/pms-web/src/favicon.ico",
+              "apps/pms-web/src/assets"
+            ],
+            "styles": [
+              "apps/pms-web/src/styles/antd/theme.less",
+              "apps/pms-web/src/styles/bootstrap/bootstrap.scss",
+              "apps/pms-web/src/styles/pms/pms.scss",
+              "apps/pms-web/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/pms-web/src/environments/environment.ts",
+                  "with": "apps/pms-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "pms-web:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "pms-web:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "pms-web:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/pms-web/src/test.ts",
+            "polyfills": "apps/pms-web/src/polyfills.ts",
+            "tsConfig": "apps/pms-web/tsconfig.spec.json",
+            "karmaConfig": "apps/pms-web/karma.conf.js",
+            "styles": [
+              "apps/pms-web/src/styles/antd/theme.less",
+              "apps/pms-web/src/styles/bootstrap/bootstrap.scss",
+              "apps/pms-web/src/styles/pms/pms.scss",
+              "apps/pms-web/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/pms-web/src/favicon.ico",
+              "apps/pms-web/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/pms-web/tsconfig.app.json",
+              "apps/pms-web/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "pms-web-e2e": {
+      "root": "apps/pms-web-e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/pms-web-e2e/protractor.conf.js",
+            "devServerTarget": "pms-web:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/pms-web-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "console-ui": {
+      "root": "libs/console-ui",
+      "sourceRoot": "libs/console-ui/src",
+      "projectType": "library",
+      "prefix": "cui",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/console-ui/src/test.ts",
+            "tsConfig": "libs/console-ui/tsconfig.spec.json",
+            "karmaConfig": "libs/console-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/console-ui/tsconfig.lib.json",
+              "libs/console-ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "pms-api": {
+      "root": "libs/pms-api",
+      "sourceRoot": "libs/pms-api/src",
+      "projectType": "library",
+      "prefix": "qianrenxi",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/pms-api/src/test.ts",
+            "tsConfig": "libs/pms-api/tsconfig.spec.json",
+            "karmaConfig": "libs/pms-api/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/pms-api/tsconfig.lib.json",
+              "libs/pms-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
       "versionMismatch": false
     },
     "defaultCollection": "@nrwl/schematics"
-  }
+  },
+  "defaultProject": "pms-web"
 }

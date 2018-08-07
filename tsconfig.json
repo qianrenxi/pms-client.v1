@@ -16,6 +16,12 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@qianrenxi/console-ui": [
+        "libs/console-ui/src/index.ts"
+      ],
+      "@qianrenxi/pms-api": [
+        "libs/pms-api/src/index.ts"
+      ]
     }
   },
   "exclude": [
