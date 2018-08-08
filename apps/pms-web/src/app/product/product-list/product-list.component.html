@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <section>
+    <h1>全部产品</h1>
+
+    <button (click)="null" [routerLink]="['/product']" nz-button>产品主页</button>
+    <button (click)="null" nz-button>添加产品</button>
+    <button (click)="null" nz-button>设为主页 ？</button>
+    <!-- 这个项可能不是很明白，需要一个popover的帮助 -->
+  </section>
+
+  <section class="d-flex">
+    <div class="side" style="width: 180px;">
+      产品线
+      <ul>
+        <li>产品线1</li>
+        <li>产品线2</li>
+        <li>产品线3</li>
+      </ul>
+    </div>
+    <div class="content" style="flex: auto;">
+      <div class="toolbar d-flex mb-3">
+        <ul class="d-flex">
+          <li>未关闭
+            <nz-badge [nzCount]="25" [nzStyle]="{ backgroundColor: '#52c41a' }"></nz-badge>
+          </li>
+          <li>已关闭
+            <nz-badge [nzCount]="25"></nz-badge>
+          </li>
+          <li>全部产品
+            <nz-badge [nzCount]="25"></nz-badge>
+          </li>
+        </ul>
+
+        <div class="list-tools ml-auto">
+          <button (click)="null" nz-button>导出</button>
+          <button (click)="null" nz-button nzType="primary">添加产品</button>
+        </div>
+      </div>
+
+      <nz-table #nzTable [nzData]="[]" [nzPageSize]="10" nzch>
+        <thead>
+          <tr>
+            <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+            <th nzShowSort nzSortKey="age">ID</th>
+            <th nzShowSort nzSortKey="age">产品名称</th>
+            <th nzShowSort nzSortKey="age">产品线</th>
+            <th>激活需求</th>
+            <th>已变更需求</th>
+            <th>草稿需求</th>
+            <th>已关闭需求</th>
+            <th>计划数</th>
+            <th>发布数</th>
+            <th>相关Bug</th>
+            <th>未解决Bug</th>
+            <th>未指派Bug</th>
+            <th nzShowSort nzSortKey="age">排序</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of nzTable.data">
+            <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.title}}</td>
+            <td>
+              <a href="#" (click)="edit(i)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a href="#" (click)="del(i)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </section>
+</div>

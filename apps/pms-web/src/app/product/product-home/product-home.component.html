@@ -2,13 +2,10 @@
   <section>
     <h1>产品主页</h1>
 
-    <button (click)="null" nz-button>全部产品</button>
+    <button (click)="null" [routerLink]="['./list']" nz-button>全部产品</button>
     <button (click)="null" nz-button>添加产品</button>
     <button (click)="null" nz-button>设为主页 ？</button>
     <!-- 这个项可能不是很明白，需要一个popover的帮助 -->
-
-    <!-- <button class="btn btn-primary">Primary</button>
-    <button class="btn btn-danger">Danger</button> -->
   </section>
 
   <section>
