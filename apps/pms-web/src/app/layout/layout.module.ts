@@ -5,6 +5,7 @@ import { LayoutHeaderComponent } from './layout-header/layout-header.component';
 import { LayoutFooterComponent } from './layout-footer/layout-footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   imports: [
@@ -15,10 +16,12 @@ import { RouterModule } from '@angular/router';
   declarations: [
     MainLayoutComponent,
     LayoutHeaderComponent,
-    LayoutFooterComponent
+    LayoutFooterComponent,
+    WelcomeComponent
   ],
   exports: [
-    MainLayoutComponent
+    MainLayoutComponent,
+    WelcomeComponent
   ]
 })
 export class LayoutModule { }

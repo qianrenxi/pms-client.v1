@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <section>
+    <h1>产品主页</h1>
+
+    <button (click)="null" nz-button>全部产品</button>
+    <button (click)="null" nz-button>添加产品</button>
+    <button (click)="null" nz-button>设为主页 ？</button>
+    <!-- 这个项可能不是很明白，需要一个popover的帮助 -->
+
+    <!-- <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-danger">Danger</button> -->
+  </section>
+
+  <section>
+    Dashboards...
+    <button (click)="null" nz-button>添加面板</button>
+    <!--
+      产品统计
+      产品总览
+      产品列表
+      需求列表
+      计划列表
+      发布列表
+    -->
+  </section>
+
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <nz-card [nzBordered]="false" nzTitle="产品统计" [nzExtra]="extraTemplate">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+
+        <ng-template #extraTemplate>
+          <a>More</a>
+        </ng-template>
+      </nz-card>
+    </div>
+    <div class="col-md-4">
+      <nz-card [nzBordered]="false" nzTitle="产品总览" [nzExtra]="extraTemplate">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+
+        <ng-template #extraTemplate>
+          <a>More</a>
+        </ng-template>
+      </nz-card>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <nz-card [nzBordered]="false" nzTitle="产品列表" [nzExtra]="extraTemplate">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+
+        <ng-template #extraTemplate>
+          <a>More</a>
+        </ng-template>
+      </nz-card>
+    </div>
+    <div class="col-md-4">
+      <nz-card [nzBordered]="false" nzTitle="需求列表" [nzExtra]="extraTemplate">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+
+        <ng-template #extraTemplate>
+          <a>More</a>
+        </ng-template>
+      </nz-card>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <nz-card [nzBordered]="false" nzTitle="计划列表" [nzExtra]="extraTemplate">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+
+        <ng-template #extraTemplate>
+          <a>More</a>
+        </ng-template>
+      </nz-card>
+    </div>
+    <div class="col-md-4">
+      <nz-card [nzBordered]="false" nzTitle="发布列表" [nzExtra]="extraTemplate">
+        <p>Card content</p>
+        <p>Card content</p>
+        <p>Card content</p>
+
+        <ng-template #extraTemplate>
+          <a>More</a>
+        </ng-template>
+      </nz-card>
+    </div>
+  </div>
+
+</div>
