@@ -19,6 +19,15 @@
     },
     "pms-api": {
       "tags": []
+    },
+    "ng-antd-pro": {
+      "tags": []
+    },
+    "pro-demo": {
+      "tags": []
+    },
+    "pro-demo-e2e": {
+      "tags": []
     }
   }
 }

@@ -1,3 +1,54 @@
-<p>
-  product-summary works!
-</p>
+<div style="background: #ffffff; padding: 1.75rem 1rem 0 1rem;">
+  <div class="d-flex">
+    <nz-avatar [nzSrc]="'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png'"></nz-avatar>
+    <div class="ml-3" style="flex: auto;">
+      <div class="d-flex">
+        <h5 class="d-inline-block">企业网站建设</h5>
+        <div class="actions ml-auto">
+          <!-- <button (click)="null" nz-button>关闭</button>
+          <button (click)="null" nz-button>编辑</button> -->
+          <button (click)="null" nz-button>产品设置</button> <!-- 上面两个按钮均不合理，放设置更好些 -->
+        </div>
+      </div>
+      <div class="">
+          <p>建立公司企业网站，可以更好对外展示。</p>
+      </div>
+    </div>
+  </div>
+  
+  <div>
+    <nz-tabset>
+      <nz-tab nzTitle="详情">
+      </nz-tab>
+      <nz-tab nzTitle="活动日志">
+      </nz-tab>
+      <nz-tab nzTitle="统计">
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</div>
+
+<div>
+  <div style="float: right;">
+    <label nz-checkbox>设为默认页 ？</label>
+  </div>
+  <pre>
+      负责人
+      产品	产品经理	 测试	测试经理
+      发布	产品经理
+     基本信息
+     产品线	
+     由谁创建	产品经理
+     创建日期	2012-06-05
+     访问控制	默认设置(有产品视图权限，即可访问)
+     其他信息
+     激活需求	4	计划数	1	相关Bug	4
+     已变更需求	0	关联项目数	2	用例数	4
+     草稿需求	3	BUILD数	1	文档数	0
+     已关闭需求	0	发布数	1
+  </pre>
+
+  <h6>计划</h6>
+  <h6>最新动态</h6>
+  <h6>历史记录</h6>
+</div>

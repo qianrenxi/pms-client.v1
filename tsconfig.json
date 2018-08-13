@@ -21,6 +21,9 @@
       ],
       "@qianrenxi/pms-api": [
         "libs/pms-api/src/index.ts"
+      ],
+      "@qianrenxi/ng-antd-pro": [
+        "libs/ng-antd-pro/src/index.ts"
       ]
     }
   },

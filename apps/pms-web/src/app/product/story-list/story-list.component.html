@@ -1,0 +1,103 @@
+<div class="p-3" style="background: #ffffff;">
+  <div style="float: right;">
+    <button (click)="null" nz-button>摘要</button>
+    <!-- 报表 -->
+    <button (click)="null" nz-button>导入</button>
+    <button (click)="null" nz-button>批量创建</button>
+    <button (click)="null" nz-button nzType="primary">提需求</button>
+  </div>
+  <h5>需求</h5>
+</div>
+
+<!-- 模块树 -- 筛选器 -- 自定义筛选器 -- 搜索表单 -- 列表 -- 导出 -->
+
+<div class="d-flex">
+  <div style="width: 200px; background: #ffffff;">
+    <strong>产品模块</strong>
+    <pms-folder-tree></pms-folder-tree>
+    <button (click)="null" nz-button>维护模块</button>
+    <br>
+    <a href="#">列表中模块显示设置</a>
+  </div>
+  <div style="flex: auto;">
+    <div class="d-flex">
+      <ul class="d-flex" style="list-style: none;">
+        <li>全部需求</li>
+        <li>未关闭</li>
+        <li>指给我</li>
+        <li>我创建</li>
+        <li>我评审</li>
+        <li>草稿</li>
+        <li>更多</li>
+        <!-- 我关闭、激活、已变更、待关闭、已关闭 -->
+      </ul>
+
+      <div class="ml-auto">
+        <button (click)="null" nz-button>报表</button>
+        <button (click)="null" nz-button>导出</button>
+      </div>
+    </div>
+
+    <div>
+      过滤器
+    </div>
+
+    <div class="m-3" style="background: #ffffff;">
+      <nz-table #nzTable [nzData]="stories" [nzPageSize]="10">
+        <thead>
+          <tr>
+            <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+            <th>#</th>
+            <th>标题</th>
+            <th>计划</th>
+            <th>创建</th>
+            <th>指派</th>
+            <th>预计</th>
+            <th>状态</th>
+            <th>阶段</th>
+            <th>T</th>
+            <th>B</th>
+            <th>C</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of nzTable.data">
+            <td nzShowCheckbox [(nzChecked)]="i.checked" (nzCheckedChange)="refreshStatus($event)"></td>
+            <td>{{i.id}}</td>
+            <td>{{i.title}}</td>
+            <td>{{i.plan}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <a href="#" (click)="edit(i)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a href="#" (click)="del(i)">删除</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <nz-dropdown>
+                <a class="ant-dropdown-link" nz-dropdown>
+                  更多
+                  <i class="anticon anticon-down"></i>
+                </a>
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <a (click)="null">active</a>
+                  </li>
+                </ul>
+              </nz-dropdown>
+
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,36 @@
+<div style="background: #ffffff;">
+  <h6>模块维护</h6>
+</div>
+
+<div class="container-fluid mt-3">
+  <div style="background: #ffffff;">
+    <nz-table #nzTable [nzData]="data">
+        <thead>
+          <tr>
+            <th nzWidth="40%">名称</th>
+            <th nzWidth="30%">简称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-data [ngForOf]="nzTable.data">
+            <ng-template ngFor let-item [ngForOf]="expandDataCache[data.key]">
+              <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)">
+                <td [nzIndentSize]="item.level*20" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[data.key],item,$event)">
+                  <i class="anticon anticon-folder-open ml-2"></i>  {{item.name}}
+                </td>
+                <td>{{item.address}}</td>
+                <td>
+                    <a href="#">添加子模块</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a href="#">编辑</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a href="#">删除</a>
+                </td>
+              </tr>
+            </ng-template>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+</div>

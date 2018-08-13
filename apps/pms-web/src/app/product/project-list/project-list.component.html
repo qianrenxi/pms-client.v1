@@ -1,0 +1,44 @@
+<div class="p-3" style="background: #ffffff;">
+    <div style="float: right;">
+      <button (click)="null" nz-button nzType="primary">创建项目</button>
+    </div>
+    <h5>项目列表</h5>
+  </div>
+
+  <div>
+    全部 | 未过期 | 已过期
+  </div>
+
+  <nz-table #nzTable [nzData]="projects" [nzPageSize]="10">
+    <thead>
+      <tr>
+        <!-- <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th> -->
+        <!-- <th>#</th> -->
+        <th>名称</th>
+        <th>别名</th>
+        <th>截止日期</th>
+        <th>项目状态</th>
+        <th>预计</th>
+        <th>消耗</th>
+        <th>剩余</th>
+        <th>进度</th>
+        
+        <th>燃尽图</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of nzTable.data">
+        <!-- <td nzShowCheckbox [(nzChecked)]="i.checked" [nzDisabled]="i.disabled" (nzCheckedChange)="refreshStatus($event)"></td> -->
+        <!-- <td>{{i.id}}</td> -->
+        <td>{{i.name}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </nz-table>

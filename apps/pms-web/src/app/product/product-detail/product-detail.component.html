@@ -1,23 +1,25 @@
 <nz-layout class="fill">
-  <nz-sider [nzCollapsible]="true" [nzWidth]="200" [nzCollapsedWidth]="64" [nzTrigger]="null">
-    <div class="product-select" style="background: #ffffff; height: 64px; overflow: hidden;">
-      <h2>企业网站建设</h2> &gt;
+  <nz-sider [nzCollapsible]="true" [nzWidth]="200" [nzCollapsedWidth]="64" [nzTrigger]="null" style="border-right: 1px solid #e8e8e8;">
+    <div class="product-select" 
+      style="background: #fefefe; height: 64px; overflow: hidden; border-bottom: 1px solid #cccccc;">
+      <h5>企业网站建设</h5>
     </div>
 
     <div class="fill" style="top: 64px; overflow: auto;">
-    <ul nz-menu>
-      <li nz-menu-item>概况</li>
+    <ul nz-menu style="border-right: none;">
+      <li nz-menu-item [routerLink]="['summary']">概况</li>
       <li nz-menu-divider></li>
-      <li nz-menu-item>需求</li>
-      <li nz-menu-item>计划</li>
-      <li nz-menu-item>发布</li>
-      <li nz-menu-item>项目</li>
-      <li nz-menu-item>文档</li>
-      <li nz-menu-item>动态</li>
-      <li nz-menu-item>路线图</li>
-      <li nz-menu-item>模块</li>
+      <li nz-menu-item [routerLink]="['story']">需求</li>
+      <!-- <li nz-menu-item>史诗</li> -->
+      <li nz-menu-item [routerLink]="['plan']">计划</li>
+      <li nz-menu-item [routerLink]="['release']">发布</li>
+      <li nz-menu-item [routerLink]="['project']">项目</li>
+      <li nz-menu-item [routerLink]="['docLib']">文档</li>
+      <li nz-menu-item [routerLink]="['activity']">动态</li>
+      <li nz-menu-item [routerLink]="['roadmap']">路线图</li>
+      <li nz-menu-item [routerLink]="['folder']">模块</li>
       <li nz-menu-divider></li>
-      <li nz-menu-item>设置</li>
+      <li nz-menu-item [routerLink]="['settings']">设置</li>
       <li nz-submenu style="display: none;">
         <span title>子菜单</span>
         <ul>
@@ -29,6 +31,6 @@
 
   </nz-sider>
   <nz-content>
-
+<router-outlet></router-outlet>
   </nz-content>
 </nz-layout>
