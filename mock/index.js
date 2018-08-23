@@ -7,7 +7,7 @@
 // import { getNotices } from './notices';
 
 const { getRule, postRule } = require('./rule');
-const { getPets } = require('./pet');
+const { getNotice, getActivities, getFakeList } = require('./api');
 
 const proxy = {
   'GET /api/currentUser': {
@@ -26,6 +26,8 @@ const proxy = {
     },
   },
   'GET /api/rule': getRule,
-  'GET /pai/pets': getPets
+  'GET /api/fake': getFakeList,
+  'GET /api/notice': getNotice,
+  'GET /api/activities': getActivities
 }
 module.exports = proxy;

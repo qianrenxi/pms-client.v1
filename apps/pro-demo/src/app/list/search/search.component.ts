@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'demo-search',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  tabs = [
+    {label: '文章', link: "articles"},
+    {label: '项目', link: "projects"},
+    {label: '应用', link: "applications"},
+  ]
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
   }
 
+  tabChange({index, tab, tabItem}) {
+    this.router.navigate([tabItem.link], {relativeTo: this.route})
+  }
 }

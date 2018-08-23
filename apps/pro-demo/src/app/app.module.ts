@@ -9,11 +9,11 @@ import { AppComponent } from './app.component';
 import { NxModule } from '@nrwl/nx';
 import { LayoutModule } from './layout/layout.module';
 import { AppRoutingModule } from './app-routing.module';
-import { PmsApiModule } from '@qianrenxi/pms-api';
 
 /** 配置 angular i18n **/
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { ApiServiceModule } from './api-service/api-service.module';
 registerLocaleData(zh);
 
 @NgModule({
@@ -27,7 +27,7 @@ registerLocaleData(zh);
     NxModule.forRoot(),
     LayoutModule,
     AppRoutingModule,
-    PmsApiModule,
+    ApiServiceModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

@@ -1,6 +1,5 @@
 // import { parse } from 'url';
-
-const parse = require('url').parse;
+const { parse } = require('url');
 
 // mock tableListDataSource
 let tableListDataSource = [];

@@ -1,4 +1,4 @@
-import { parse } from 'url';
+const { parse } = require('url');
 
 const titles = [
   'Alipay',
@@ -61,7 +61,7 @@ const user = [
   '仲尼',
 ];
 
-export function fakeList(count) {
+function fakeList (count) {
   const list = [];
   for (let i = 0; i < count; i += 1) {
     list.push({
@@ -106,7 +106,7 @@ export function fakeList(count) {
   return list;
 }
 
-export function getFakeList(req, res, u) {
+exports.getFakeList = function (req, res, u) {
   let url = u;
   if (!url || Object.prototype.toString.call(url) !== '[object String]') {
     url = req.url; // eslint-disable-line
@@ -125,7 +125,7 @@ export function getFakeList(req, res, u) {
   }
 }
 
-export const getNotice = [
+exports.getNotice = [
   {
     id: 'xxx1',
     title: titles[0],
@@ -188,7 +188,7 @@ export const getNotice = [
   },
 ];
 
-export const getActivities = [
+exports.getActivities = [
   {
     id: 'trend-1',
     updatedAt: new Date(),
@@ -289,8 +289,8 @@ export const getActivities = [
   },
 ];
 
-export default {
-  getNotice,
-  getActivities,
-  getFakeList,
-};
+// export default {
+//   getNotice,
+//   getActivities,
+//   getFakeList,
+// };

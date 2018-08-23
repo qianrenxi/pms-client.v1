@@ -27,15 +27,12 @@
             <button (click)="null" nz-button nzType="dashed" class="w-100" style="height: 182px;"><i class="anticon anticon-plus"></i> 新增产品</button>
           </div>
       </nz-col>
-    <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8" *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8]">
+    <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="8" *ngFor="let item of list">
       <div class="list-item">
         <nz-card [nzActions]="[actionSetting,actionEdit,actionEllipsis]" [nzHoverable]="true">
-          <nz-card-meta nzTitle="Card title" nzDescription="在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。" [nzAvatar]="avatarTemplate"></nz-card-meta>
+          <nz-card-meta [nzTitle]="item.title" nzDescription="在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。" [nzAvatar]="avatarTemplate"></nz-card-meta>
           <ng-template #avatarTemplate>
-            <nz-avatar nzSize="large" nzSrc="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png"></nz-avatar>
-          </ng-template>
-          <ng-template #coverTemplate>
-            <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+            <nz-avatar nzSize="large" [nzSrc]="item.avatar"></nz-avatar>
           </ng-template>
           <ng-template #actionSetting>
             <i class="anticon anticon-setting"></i>

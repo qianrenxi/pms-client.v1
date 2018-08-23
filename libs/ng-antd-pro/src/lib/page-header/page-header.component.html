@@ -24,14 +24,14 @@
         <ng-container *ngIf="!tplContent && !!content">{{content}}</ng-container>
         <ng-container *ngIf="tplContent" [ngTemplateOutlet]="tplContent"></ng-container>
       </div>
-      <div class="extra-content">
+      <div class="extra-content" *ngIf="showExtraContent">
         <ng-container [ngTemplateOutlet]="tplContentExtra"></ng-container>
       </div>
     </div>
   </div>
 </div>
 
-<nz-tabset *ngIf="showTabs">
+<nz-tabset *ngIf="showTabs" (nzSelectChange)="fireTabChange($event)">
   <nz-tab *ngFor="let item of tabs" [nzTitle]="item.label">
   </nz-tab>
 </nz-tabset>

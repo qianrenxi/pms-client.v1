@@ -1,6 +1,7 @@
-import { Component, OnInit, HostBinding, Input, ContentChild, TemplateRef, AfterContentInit } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, ContentChild, TemplateRef, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { isString } from 'util';
+import { NzTabChangeEvent } from 'ng-zorro-antd';
 
 export interface Breadcrumb {
   lable: string;
@@ -27,6 +28,8 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
   @Input() content: string | TemplateRef<any>;
   @Input() contentExtra: TemplateRef<any>;
   @Input() tabs: TabItem[];
+
+  @Output() tabChange: EventEmitter<any> = new EventEmitter<any>();
 
   @ContentChild("logo") tplLogo: TemplateRef<any>;
   @ContentChild("title") tplTitle: TemplateRef<any>;
@@ -57,6 +60,10 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
 
   get showContent(): boolean {
     return !!this.content || !!this.tplContent || !!this.tplContentExtra;
+  }
+
+  get showExtraContent(): boolean {
+    return !!this.tplContentExtra;
   }
 
   get showTabs(): boolean {
@@ -94,6 +101,10 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
       this.tplContentExtra = this.contentExtra;
     }
 
+  }
+
+  fireTabChange(e: NzTabChangeEvent) {
+    this.tabChange.emit({...e, tabItem: this.tabs[e.index]});
   }
 
 }

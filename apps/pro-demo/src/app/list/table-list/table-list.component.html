@@ -14,27 +14,34 @@
       </ng-template>
     </nz-alert>
 
-    <nz-table #nzTable [nzData]="[]" [nzPageSize]="10">
+    <nz-table #nzTable [nzData]="list" [nzPageSize]="10" [nzShowSizeChanger]="true" [nzShowQuickJumper]="true" [nzShowTotal]="pageTotal">
       <thead>
         <tr>
           <th>编号</th>
           <th>描述</th>
-          <th>服务调用次数</th>
-          <th>状态</th>
-          <th>更新时间</th>
+          <th nzShowSort nzSortKey="callNo" class="text-right">服务调用次数</th>
+          <th nzShowFilter [nzFilters]="filterGender" (nzFilterChange)="updateFilter($event)">状态</th>
+          <th nzShowSort nzSortKey="updatedAt">更新时间</th>
           
           <th>操作</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let i of nzTable.data">
-          <td>{{i.title}}</td>
+          <td>{{i.no}}</td>
+          <td>{{i.description}}</td>
+          <td class="text-right">{{i.callNo}} 万</td>
+          <td>
+            <nz-badge [nzStatus]="statusMap[i.status]"></nz-badge>
+            <span>{{status[i.status]}}</span>
+          </td>
+          <td>{{i.updatedAt | date: 'yyyy-MM-dd HH:mm'}}</td>
           
           <td>
-            <a href="#" (click)="edit(i)">编辑</a>
+            <a href="#" (click)="edit(i)">配置</a>
             <nz-divider nzType="vertical"></nz-divider>
-            <a href="#" (click)="del(i)">删除</a>
-            <nz-divider nzType="vertical"></nz-divider>
+            <a href="#" (click)="del(i)">订阅报警</a>
+            <!-- <nz-divider nzType="vertical"></nz-divider>
             <nz-dropdown>
               <a class="ant-dropdown-link" nz-dropdown>
                 更多 <i class="anticon anticon-down"></i>
@@ -44,11 +51,15 @@
                   <a (click)="null">active</a>
                 </li>
               </ul>
-            </nz-dropdown>
+            </nz-dropdown> -->
             
           </td>
         </tr>
       </tbody>
+
+      <ng-template #pageTotal let-total>
+        共 {{total}} 条记录，
+      </ng-template>
     </nz-table>
   </nz-card>
 
