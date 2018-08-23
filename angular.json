@@ -272,6 +272,17 @@
             }
           }
         },
+        "mock-serve": {
+          "builder": "./build-angular:mock-dev-server",
+          "options": {
+            "browserTarget": "pro-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "pro-demo:build:production"
+            }
+          }
+        },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {

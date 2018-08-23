@@ -1,0 +1,11 @@
+{
+    "$schema": "@angular-devkit/architect/src/builders-schema.json",
+    "builders": {
+      "mock-dev-server": {
+        "class": "./mock-dev-server",
+        "schema": "./mock-dev-server/schema.json",
+        "description": "Dev Server extended to build with targeted builder"
+      }
+    }
+  }
+  

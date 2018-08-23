@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "target": "es2016",
+        "lib": [
+            "es2017"
+        ],
+        "strict": true,
+        "allowSyntheticDefaultImports": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "forceConsistentCasingInFileNames": true,
+        "pretty": true,
+        "sourceMap": true,
+        "declaration": true,
+        "stripInternal": true,
+        "skipLibCheck": true,
+        "declarationDir": "typings"
+    },
+    "exclude": [
+        "node_modules",
+        "../node_modules"
+    ],
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "files": [
+        "index.ts",
+        "schemes.ts"
+    ]
+}
