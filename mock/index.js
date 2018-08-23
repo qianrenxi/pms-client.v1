@@ -6,7 +6,8 @@
 // import { getProfileAdvancedData } from './profile';
 // import { getNotices } from './notices';
 
-// const rule = require('./rule');
+const { getRule, postRule } = require('./rule');
+const { getPets } = require('./pet');
 
 const proxy = {
   'GET /api/currentUser': {
@@ -24,10 +25,7 @@ const proxy = {
       notifyCount: 12,
     },
   },
-  'GET /api/rule': (req, res) => {
-    res.json(
-      {'id': 1}
-    );
-  }
+  'GET /api/rule': getRule,
+  'GET /pai/pets': getPets
 }
 module.exports = proxy;

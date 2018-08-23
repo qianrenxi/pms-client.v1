@@ -25,7 +25,7 @@ for (let i = 0; i < 46; i += 1) {
   });
 }
 
-export function getRule(req, res, u) {
+exports.getRule = function (req, res, u) {
   let url = u;
   if (!url || Object.prototype.toString.call(url) !== '[object String]') {
     url = req.url; // eslint-disable-line
@@ -81,7 +81,7 @@ export function getRule(req, res, u) {
   }
 }
 
-export function postRule(req, res, u, b) {
+exports.postRule = function (req, res, u, b) {
   let url = u;
   if (!url || Object.prototype.toString.call(url) !== '[object String]') {
     url = req.url; // eslint-disable-line
@@ -133,7 +133,7 @@ export function postRule(req, res, u, b) {
   }
 }
 
-export default {
-  getRule,
-  postRule,
-};
+// export default {
+//   getRule,
+//   postRule,
+// };
