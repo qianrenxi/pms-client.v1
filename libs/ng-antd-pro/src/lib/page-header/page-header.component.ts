@@ -74,12 +74,6 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
     private titleService: Title
   ) { }
 
-  ngOnInit() {
-    if (this.title && isString(this.title)) {
-      // this.titleService.setTitle(this.title);
-    }
-  }
-
   ngAfterContentInit(): void {
     if (this.logo && this.logo instanceof TemplateRef) {
       this.tplLogo = this.logo;
@@ -102,6 +96,14 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
     }
 
   }
+  
+  ngOnInit() {
+    if (this.title && isString(this.title)) {
+      // this.titleService.setTitle(this.title);
+    }
+  }
+
+  
 
   fireTabChange(e: NzTabChangeEvent) {
     this.tabChange.emit({...e, tabItem: this.tabs[e.index]});
