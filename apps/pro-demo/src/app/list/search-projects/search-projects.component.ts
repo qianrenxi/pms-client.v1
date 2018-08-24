@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FakeApiService } from '../../api-service/fake-api.service';
 
 @Component({
   selector: 'demo-search-projects',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchProjectsComponent implements OnInit {
 
-  constructor() { }
+  list: any[];
+  pagination: any;
+
+  constructor(
+    private fakeApi: FakeApiService
+  ) { }
 
   ngOnInit() {
+    this.loadData();
   }
+
+  loadData() {
+    this.fakeApi.getFakeList({count: 8}).subscribe(list => {
+      this.list = list;
+    });
+  }
+
 
 }
