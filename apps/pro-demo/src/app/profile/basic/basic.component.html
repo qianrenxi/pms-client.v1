@@ -1,3 +1,14 @@
-<p>
-  basic works!
-</p>
+<ap-page-header [breadcrumbs]="[{label: '首页', link: '/'}, {label: '详情页'}, {label: '基础详情页'}]" title="基础详情页"></ap-page-header>
+
+<div class="page-content">
+
+  <nz-card [nzBordered]="false">
+      <ap-description-list title="退款申请">
+        <ap-description term="取货单号">1000000000</ap-description>
+        <ap-description term="状态">已取货</ap-description>
+        <ap-description term="销售单号">2000000000</ap-description>
+        <ap-description term="子订单">3000000000</ap-description>
+      </ap-description-list>
+      <!-- <Divider style={{ marginBottom: 32 }} /> -->
+  </nz-card>
+</div>

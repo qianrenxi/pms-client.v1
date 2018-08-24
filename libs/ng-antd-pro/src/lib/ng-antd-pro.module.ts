@@ -6,6 +6,8 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { RouterModule } from '@angular/router';
 import { ResultComponent } from './result/result.component';
 import { ExceptionComponent } from './exception/exception.component';
+import { DescriptionComponent } from './description/description.component';
+import { DescriptionListComponent } from './description-list/description-list.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,12 +19,16 @@ import { ExceptionComponent } from './exception/exception.component';
     AvatarListComponent,
     ResultComponent,
     ExceptionComponent,
+    DescriptionComponent,
+    DescriptionListComponent,
   ],
   exports: [
     PageHeaderComponent,
     AvatarListComponent,
     ResultComponent,
     ExceptionComponent,
+    DescriptionComponent,
+    DescriptionListComponent,
   ]
 })
 export class NgAntdProModule {}
