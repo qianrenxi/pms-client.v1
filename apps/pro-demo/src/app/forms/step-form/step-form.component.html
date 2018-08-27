@@ -80,15 +80,17 @@
 </ng-template>
 
 <ng-template #step3>
-    <ap-result type="success" title="操作成功" description="预计两小时内到账">
-        <ng-template #extra>
-            <ng-container [ngTemplateOutlet]="infoDesc"></ng-container>
-        </ng-template>
-        <ng-template #actions>
-            <button nz-button nzType="primary" class="mr-2" (click)="reset()">再转一笔</button>
-            <button nz-button class="mr-2">查看账单</button>
-        </ng-template>
-    </ap-result>
+    <div style="margin: auto -100px;">
+        <ap-result type="success" title="操作成功" description="预计两小时内到账">
+            <ng-template #extra>
+                <ng-container [ngTemplateOutlet]="infoDesc"></ng-container>
+            </ng-template>
+            <ng-template #actions>
+                <button nz-button nzType="primary" class="mr-2" (click)="reset()">再转一笔</button>
+                <button nz-button class="mr-2">查看账单</button>
+            </ng-template>
+        </ap-result>
+    </div>
 </ng-template>
 
 <ng-template #infoDesc>
