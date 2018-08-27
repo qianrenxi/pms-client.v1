@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'demo-basic-form',
@@ -7,9 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasicFormComponent implements OnInit {
 
-  constructor() { }
+  formGroup: FormGroup;
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
+    this.initForm();
   }
 
+  initForm() {
+    this.formGroup = this.fb.group({
+      title: [, Validators.required],
+      dateRange: [, Validators.required],
+      goal: [, Validators.required],
+      standard: [, Validators.required],
+      client: [],
+      invites: [],
+      weight: [],
+      public: ['public']
+    });
+  }
+
+  _submitForm(e, v) {
+    
+  }
 }
