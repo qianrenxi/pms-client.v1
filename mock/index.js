@@ -8,6 +8,7 @@
 
 const { getRule, postRule } = require('./rule');
 const { getNotice, getActivities, getFakeList } = require('./api');
+const { getProfileBasicData, getProfileAdvancedData} = require('./profile');
 
 const proxy = {
   'GET /api/currentUser': {
@@ -28,6 +29,9 @@ const proxy = {
   'GET /api/rule': getRule,
   'GET /api/fake': getFakeList,
   'GET /api/notice': getNotice,
-  'GET /api/activities': getActivities
+  'GET /api/activities': getActivities,
+
+  'GET /api/profile/basic': getProfileBasicData,
+  'GET /api/profile/advanced': getProfileAdvancedData,
 }
 module.exports = proxy;

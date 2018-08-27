@@ -141,18 +141,18 @@ const advancedOperation3 = [
   },
 ];
 
-export const getProfileBasicData = {
+exports.getProfileBasicData = {
   basicGoods,
   basicProgress,
 };
 
-export const getProfileAdvancedData = {
+exports.getProfileAdvancedData = {
   advancedOperation1,
   advancedOperation2,
   advancedOperation3,
 };
 
-export default {
-  getProfileBasicData,
-  getProfileAdvancedData,
-};
+// export default {
+//   getProfileBasicData,
+//   getProfileAdvancedData,
+// };
