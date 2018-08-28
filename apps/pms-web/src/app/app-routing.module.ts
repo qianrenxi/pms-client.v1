@@ -7,7 +7,12 @@ const routes: Routes = [
     {
         path: '', component: MainLayoutComponent, children: [
             { path: '', component: WelcomeComponent },
-            { path: 'product', loadChildren: './product/product.module#ProductModule'}
+            { path: 'my', loadChildren: './my/my.module#MyModule'},
+            { path: 'product', loadChildren: './product/product.module#ProductModule'},
+            { path: 'project', loadChildren: './project/project.module#ProjectModule'},
+            { path: 'test', loadChildren: './test/test.module#TestModule'},
+
+            { path: '**', component: WelcomeComponent}
         ]
     },
 ];

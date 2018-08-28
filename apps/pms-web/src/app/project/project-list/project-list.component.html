@@ -1,3 +1,62 @@
-<p>
-  project-list works!
-</p>
+<ap-page-header title="全部项目">
+    <ng-template #actions>
+      <button nz-button class="ml-2" [routerLink]="['/project']" routerLinkActive="router-link-active" >项目主页</button>
+      <button (click)="null" nz-button class="ml-2">添加项目</button>
+      <button (click)="null" nz-button class="ml-2">设为主页 <i class="anticon anticon-question-circle-o"></i></button>
+    </ng-template>
+  </ap-page-header>
+
+  <div class="page-content">
+    <nz-card [nzBordered]="false">
+      <div>
+        所有 | 未完成 | 未开始 | 进行中 | 已挂起 | 已关闭
+        请选择产品 >
+
+        导出
+      </div>
+
+      <nz-table #nzTable [nzData]="projects" [nzPageSize]="10">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>项目名称</th>
+            <th>项目代号</th>
+            <th>项目负责人</th>
+            <th>截止日期</th>
+            <th>项目状态</th>
+            <th>预计</th>
+            <th>消耗</th>
+            <th>剩余</th>
+            <th>进度</th>
+            <th>燃尽图</th>
+            <th>排序</th>
+            
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of nzTable.data">
+            <td>{{i.title}}</td>
+            
+            <td>
+              <a href="#" (click)="edit(i)">编辑</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a href="#" (click)="del(i)">删除</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <nz-dropdown>
+                <a class="ant-dropdown-link" nz-dropdown>
+                  更多 <i class="anticon anticon-down"></i>
+                </a>
+                <ul nz-menu>
+                  <li nz-menu-item>
+                    <a (click)="null">active</a>
+                  </li>
+                </ul>
+              </nz-dropdown>
+              
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>

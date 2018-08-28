@@ -1,3 +1,62 @@
-<p>
-  project-detail works!
-</p>
+<nz-layout class="fill">
+  <nz-sider [nzCollapsible]="true" [nzWidth]="200" [nzCollapsedWidth]="64" [nzTrigger]="null" style="border-right: 1px solid #e8e8e8;">
+    <div class="product-select" style="background: #fefefe; height: 64px; overflow: hidden; border-bottom: 1px solid #cccccc;">
+      <h5>企业网站建设</h5>
+    </div>
+
+    <div class="fill" style="top: 64px; overflow: auto;">
+      <ul nz-menu style="border-right: none;" nzMode="inline">
+        <li nz-menu-item [routerLink]="['summary']">概况</li>
+        <li nz-menu-divider></li>
+        <!-- <li nz-menu-item>史诗</li> -->
+        <li nz-submenu [nzOpen]="true">
+          <span title>任务</span>
+          <ul>
+            <li nz-menu-item [routerLink]="['task/list']">任务列表</li>
+            <li nz-menu-item [routerLink]="['task/group']">分组视图</li>
+            <li nz-menu-item [routerLink]="['task/tree']">树状图</li>
+            <li nz-menu-item [routerLink]="['task/gant']">甘特图</li>
+          </ul>
+        </li>
+        <li nz-menu-item [routerLink]="['release']">看板</li>
+        <li nz-menu-item [routerLink]="['project']">燃尽图</li>
+        <li nz-menu-item [routerLink]="['story']">需求</li>
+        <li nz-submenu>
+          <span title>Bug</span>
+          <ul>
+            <li nz-menu-item [routerLink]="['roadmap']">Bug</li>
+            <li nz-menu-item [routerLink]="['roadmap']">版本/构建</li>
+            <li nz-menu-item [routerLink]="['roadmap']">测试单</li>
+          </ul>
+        </li>
+        <li nz-menu-item [routerLink]="['docLib']">文档</li>
+        <li nz-menu-item [routerLink]="['activity']">动态</li>
+        <li nz-menu-item [routerLink]="['folder']">团队</li>
+        <li nz-menu-item [routerLink]="['folder']">产品</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item [routerLink]="['settings']">设置</li>
+        <li nz-submenu style="display: none;">
+            <span title>Jira 看板</span>
+            <ul>
+              <li nz-menu-item>Backlog</li>
+              <li nz-menu-item>活动的Sprint</li>
+              <li nz-menu-item>发布版本</li>
+              <li nz-menu-item>报告</li>
+              <li nz-menu-item>问题/li>
+              <li nz-menu-item>模块</li>
+            </ul>
+          </li>
+        <li nz-submenu style="display: none;">
+          <span title>子菜单</span>
+          <ul>
+            <li nz-menu-item>子菜单项</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+  </nz-sider>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>

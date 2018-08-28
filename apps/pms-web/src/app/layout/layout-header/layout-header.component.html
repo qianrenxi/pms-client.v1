@@ -5,14 +5,14 @@
 
   <div class="navbar-nav-scroll">
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" style="line-height: 64px;">
-      <li nz-menu-item>我的</li>
+      <li nz-menu-item [routerLink]="['/my']">我的</li>
       <li nz-menu-item [routerLink]="['/product']">产品</li>
-      <li nz-menu-item>项目</li>
-      <li nz-menu-item>测试</li>
-      <li nz-menu-item>文档</li>
-      <li nz-menu-item>统计</li>
-      <li nz-menu-item>组织</li>
-      <li nz-menu-item>反馈</li>
+      <li nz-menu-item [routerLink]="['/project']">项目</li>
+      <li nz-menu-item [routerLink]="['/test']">测试</li>
+      <li nz-menu-item [routerLink]="['/doc']">文档</li>
+      <li nz-menu-item [routerLink]="['/report']">统计</li>
+      <li nz-menu-item [routerLink]="['/group']">组织</li>
+      <li nz-menu-item [routerLink]="['/feedback']">反馈</li>
     </ul>
   </div>
 

@@ -1,3 +1,26 @@
-<p>
-  project-home works!
-</p>
+<ap-page-header title="项目主页">
+  <ng-template #actions>
+    <button nz-button class="ml-2" [routerLink]="['/project/list']">全部项目</button>
+    <button (click)="null" nz-button class="ml-2">添加项目</button>
+    <button (click)="null" nz-button class="ml-2">设为主页 <i class="anticon anticon-question-circle-o"></i></button>
+  </ng-template>
+</ap-page-header>
+
+<div class="page-content">
+  <a [routerLink]="['/project/1']">这是一个项目</a>
+  <br><br>
+  <nz-row nzGutter="16">
+    <nz-col nzLg="16" nzMd="24">
+      <nz-card nzTitle="项目统计" [nzBordered]="false" [nzLoading]="true">
+      </nz-card>
+      <nz-card nzTitle="进行中的项目" [nzBordered]="false" [nzLoading]="true">
+      </nz-card>
+    </nz-col>
+    <nz-col nzLg="8" nzMd="24">
+      <nz-card nzTitle="项目总览" [nzBordered]="false" [nzLoading]="true">
+      </nz-card>
+      <nz-card nzTitle="指派给我的任务" [nzBordered]="false" [nzLoading]="true">
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</div>
