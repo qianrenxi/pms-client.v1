@@ -25,11 +25,11 @@
         <nz-tab nzTitle="访问量"></nz-tab>
         <ng-template #extraTpl>
           <div class="mt-2">
-              <a class="mx-3">今日</a>
-              <a class="mx-3">本周</a>
-              <a class="mx-3">本月</a>
-              <a class="mx-3">全年</a>
-              <nz-range-picker></nz-range-picker>
+            <a class="mx-3">今日</a>
+            <a class="mx-3">本周</a>
+            <a class="mx-3">本月</a>
+            <a class="mx-3">全年</a>
+            <nz-range-picker></nz-range-picker>
           </div>
         </ng-template>
       </nz-tabset>
@@ -39,15 +39,16 @@
   </nz-card>
 
   <nz-row nzGutter="16">
-      <nz-col nzLg="12" nzMd="24">
-        <nz-card title="线上热门搜索" [nzBordered]="false" [nzLoading]="true">
-        </nz-card>
-      </nz-col>
-      <nz-col nzLg="12" nzMd="24">
-        <nz-card title="销售额类别占比" [nzBordered]="false" [nzLoading]="true">
-        </nz-card>
-      </nz-col>
-    </nz-row>
-            <nz-card [nzBordered]="false" [nzLoading]="true">
-            </nz-card>
+    <nz-col nzLg="12" nzMd="24">
+      <nz-card title="线上热门搜索" [nzBordered]="false" [nzLoading]="true">
+      </nz-card>
+    </nz-col>
+    <nz-col nzLg="12" nzMd="24">
+      <nz-card title="销售额类别占比" [nzBordered]="false" [nzLoading]="true">
+      </nz-card>
+    </nz-col>
+  </nz-row>
+  
+  <nz-card [nzBordered]="false" [nzLoading]="true">
+  </nz-card>
 </div>
