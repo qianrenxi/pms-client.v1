@@ -23,13 +23,13 @@
         <nz-form-item>
             <nz-form-label nzSpan="6">目标描述</nz-form-label>
             <nz-form-control nzSpan="10">
-                <textarea nz-input formControlName="goal" [nzAutosize]="true" placeholder="请输入你的阶段性工作目标"></textarea>
+                <textarea nz-input formControlName="goal" [nzAutosize]="{ minRows: 3, maxRows: 6 }" placeholder="请输入你的阶段性工作目标" rows="3"></textarea>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <nz-form-label nzSpan="6">衡量标准</nz-form-label>
             <nz-form-control nzSpan="10">
-                <textarea nz-input formControlName="standard" [nzAutosize]="true" placeholder="请输入衡量标准"></textarea>
+                <textarea nz-input formControlName="standard" [nzAutosize]="{ minRows: 3, maxRows: 6 }" placeholder="请输入衡量标准" rows="3"></textarea>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>

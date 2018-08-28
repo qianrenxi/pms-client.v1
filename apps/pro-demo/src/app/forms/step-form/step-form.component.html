@@ -16,7 +16,7 @@
 </div>
 
 <ng-template #step1>
-    <form nz-form [formGroup]="infoForm" (ngSubmit)="_submitInfoForm($event, infoForm.value)">
+    <form nz-form [formGroup]="infoForm" (ngSubmit)="_submitInfoForm($event, infoForm.value)" class="step-form">
         <nz-form-item>
             <nz-form-label nzSpan="4">付款账户</nz-form-label>
             <nz-form-control nzSpan="20">
@@ -57,30 +57,44 @@
             </nz-form-control>
         </nz-form-item>
     </form>
+    <nz-divider></nz-divider>
+    <div class="desc">
+        <h3>说明</h3>
+        <h4>转账到支付宝账户</h4>
+        <p>
+            如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。
+        </p>
+        <h4>转账到银行卡</h4>
+        <p>
+            如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。
+        </p>
+    </div>
 </ng-template>
 
 <ng-template #step2>
-    <nz-alert nzType="info" nzMessage="确认转账后，资金将直接打入对方账户，无法退回。" [nzShowIcon]="true" [nzCloseable]="true" class="mb-4"></nz-alert>
-    <ng-container [ngTemplateOutlet]="infoDesc"></ng-container>
-    <nz-divider></nz-divider>
-    <form nz-form [formGroup]="confirmForm" (ngSubmit)="_submitConfirmForm($event, confirmForm.value)" nzLayout="horizontal">
-        <nz-form-item>
-            <nz-form-label nzSpan="4">支付密码</nz-form-label>
-            <nz-form-control nzSpan="20">
-                <input type="password" nz-input formControlName="password" placeholder="请输入支付密码">
-            </nz-form-control>
-        </nz-form-item>
-        <nz-form-item class="mt-4">
-            <nz-form-control [nzOffset]="4">
-                <button nz-button nzType="primary">提 交</button>
-                <button type="button" nz-button class="ml-2" (click)="prev()">上一步</button>
-            </nz-form-control>
-        </nz-form-item>
-    </form>
+    <div class="step-form">
+        <nz-alert nzType="info" nzMessage="确认转账后，资金将直接打入对方账户，无法退回。" [nzShowIcon]="true" [nzCloseable]="true" class="mb-4"></nz-alert>
+        <ng-container [ngTemplateOutlet]="infoDesc"></ng-container>
+        <nz-divider></nz-divider>
+        <form nz-form [formGroup]="confirmForm" (ngSubmit)="_submitConfirmForm($event, confirmForm.value)" nzLayout="horizontal">
+            <nz-form-item>
+                <nz-form-label nzSpan="4">支付密码</nz-form-label>
+                <nz-form-control nzSpan="20">
+                    <input type="password" nz-input formControlName="password" placeholder="请输入支付密码">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="mt-4">
+                <nz-form-control [nzOffset]="4">
+                    <button nz-button nzType="primary">提 交</button>
+                    <button type="button" nz-button class="ml-2" (click)="prev()">上一步</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
 </ng-template>
 
 <ng-template #step3>
-    <div style="margin: auto -100px;">
+    <div style="margin: auto; max-width: 720px;">
         <ap-result type="success" title="操作成功" description="预计两小时内到账">
             <ng-template #extra>
                 <ng-container [ngTemplateOutlet]="infoDesc"></ng-container>
