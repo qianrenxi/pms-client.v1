@@ -12,4 +12,10 @@ export class FakeApiService {
   getFakeList(params?: any): Observable<any> {
     return this.httpClient.get('/api/fake', {params: params});
   }
+  getNotices(): Observable<any> {
+    return this.httpClient.get('/api/notice');
+  }
+  getActivities(): Observable<any> {
+    return this.httpClient.get('/api/activities');
+  }
 }

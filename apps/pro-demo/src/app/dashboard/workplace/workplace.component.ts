@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FakeApiService } from '../../api-service/fake-api.service';
 
 @Component({
   selector: 'demo-workplace',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkplaceComponent implements OnInit {
 
-  constructor() { }
+  notice: any[];
+  activities: any[];
+
+  constructor(
+    private fackApi: FakeApiService
+  ) { }
 
   ngOnInit() {
+    this.loadFake();
+  }
+
+  loadFake() {
+    this.fackApi.getNotices().subscribe(it => this.notice = it);
+    this.fackApi.getActivities().subscribe(it => this.activities = it)
   }
 
 }
