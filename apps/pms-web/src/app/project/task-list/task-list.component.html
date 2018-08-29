@@ -1,1 +1,95 @@
-<ap-page-header title="任务列表" [breadcrumbs]="[{label: '企业网站建设'}, {label: '任务列表'}]"></ap-page-header>
+<ap-page-header [breadcrumbs]="[{label: '企业网站建设'}, {label: '任务列表'}]">
+  <ng-template #title>
+    <h4 class="d-inline-block mr-3">任务列表</h4>
+    <nz-dropdown>
+      <a nz-dropdown>切换筛选器 <i class="anticon anticon-down"></i></a>
+      <ul nz-menu nzSelectable>
+        <li nz-menu-item *ngFor="let item of filters"><a>{{item.label}}</a></li>
+      </ul>
+    </nz-dropdown>
+  </ng-template>
+  <ng-template #actions>
+    <a>显示所有问题和筛选器</a>
+  </ng-template>
+  <ng-template #tabs>
+    <nz-tabset>
+      <nz-tab nzTitle="详细列表"></nz-tab>
+      <nz-tab nzTitle="分组视图"></nz-tab>
+      <nz-tab nzTitle="树状图"></nz-tab>
+      <nz-tab nzTitle="甘特图"></nz-tab>
+    </nz-tabset>
+  </ng-template>
+</ap-page-header>
+
+<div class="page-content">
+  <div>
+    筛选器  -- 选项 <br>
+    所有 | 未关闭 | 指派给我 | 由我参与 | 已延期 | 需求变动 | 更多（未开始 | 进行中 | 我完成 | 已完成 | 已关闭 | 已取消）
+    [搜索]
+    <br>
+    报表 | 导出（数据 | 模板） | 导入（从Excel导入 | 转入任务 | 转入bug） | 批量创建 | 建任务
+    <br>
+    列表选择后：编辑[ 编辑 | 关闭 | 取消] | 模块 | 指派给
+  </div>
+  <div class="d-flex">
+    <div>模块
+      维护模块 |
+        列表页是否显示模块名
+    </div>
+    <div>
+
+      <ng-container [ngTemplateOutlet]="dataList"></ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #dataList>
+  <nz-table #nzTable [nzData]="tasks" [nzPageSize]="10">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>优先级</th>
+        <th>任务名称</th>
+        <th>状态</th>
+        <th>指派给</th>
+        <th>完成者</th>
+        <th>预计</th>
+        <th>消耗</th>
+        <th>剩余</th>
+        <th>进度</th>
+        <th>截止</th>
+        
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of nzTable.data">
+        <td>{{i.id}}</td>
+        <td>{{i.title}}</td>
+        
+        <td>
+          <a href="#" (click)="edit(i)">编辑</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a href="#" (click)="del(i)">删除</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <nz-dropdown>
+            <a class="ant-dropdown-link" nz-dropdown>
+              更多 <i class="anticon anticon-down"></i>
+            </a>
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a (click)="null">active</a>
+              </li>
+            </ul>
+          </nz-dropdown>
+          
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6">选中 2 个任务，未开始 0，进行中 0，总预计 11 工时，已消耗 2 工时，剩余 0 工时。</td>
+      </tr>
+    </tfoot>
+  </nz-table>
+</ng-template>

@@ -7,6 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskListComponent implements OnInit {
 
+  filters = [
+    { label: '打开的任务', value: 1 },
+    { label: '指派给我的任务', value: 2 },
+  ];
+
+  tasks = [];
+
   constructor() { }
 
   ngOnInit() {

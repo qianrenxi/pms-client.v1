@@ -9,6 +9,10 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskGroupListComponent } from './task-group-list/task-group-list.component';
 import { TaskTreeListComponent } from './task-tree-list/task-tree-list.component';
 import { TaskGantListComponent } from './task-gant-list/task-gant-list.component';
+import { StoryListComponent } from './story-list/story-list.component';
+import { BugListComponent } from './bug-list/bug-list.component';
+import { BuildListComponent } from './build-list/build-list.component';
+import { TestTaskListComponent } from './test-task-list/test-task-list.component';
 
 const routes: Routes = [
     { path: '', component: ProjectHomeComponent },
@@ -23,7 +27,11 @@ const routes: Routes = [
                 { path: 'group', component: TaskGroupListComponent },
                 { path: 'tree', component: TaskTreeListComponent },
                 { path: 'gant', component: TaskGantListComponent },
-            ]}
+            ]},
+            { path: 'story', component: StoryListComponent },
+            { path: 'bug', component: BugListComponent },
+            { path: 'build', component: BuildListComponent },
+            { path: 'testTask', component: TestTaskListComponent }
         ]
     },
 ];
@@ -43,4 +51,8 @@ export const routedComponents = [
     TaskGroupListComponent,
     TaskTreeListComponent,
     TaskGantListComponent,
+    StoryListComponent,
+    BugListComponent,
+    BuildListComponent,
+    TestTaskListComponent,
 ];

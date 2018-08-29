@@ -1,0 +1,46 @@
+<ap-page-header title="Bug列表"></ap-page-header>
+
+<div class="page-content">
+  <nz-card>
+      <nz-table #nzTable [nzData]="[{id: 1},{id: 2}]" [nzPageSize]="10">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>级别</th>
+              <th>优先级</th>
+              <th>标题</th>
+              <th>创建人</th>
+              <th>指派给</th>
+              <th>解决者</th>
+              <th>方案</th>
+              
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of nzTable.data">
+              <td>{{i.id}}</td>
+              <td>{{i.title}}</td>
+              <td>{{i.title}}</td>
+              <td>{{i.title}}</td>
+              <td>{{i.title}}</td>
+              <td>{{i.title}}</td>
+              <td>{{i.title}}</td>
+              <td>{{i.title}}</td>
+              
+              <td>
+                <a href="#" (click)="del(i)">确认</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a href="#" (click)="del(i)">解决</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a href="#" (click)="del(i)">复制</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a href="#" (click)="edit(i)">编辑</a>
+                
+                
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+  </nz-card>
+</div>

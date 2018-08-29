@@ -10,6 +10,10 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskGroupListComponent } from './task-group-list/task-group-list.component';
 import { TaskTreeListComponent } from './task-tree-list/task-tree-list.component';
 import { TaskGantListComponent } from './task-gant-list/task-gant-list.component';
+import { BugListComponent } from './bug-list/bug-list.component';
+import { BuildListComponent } from './build-list/build-list.component';
+import { TestTaskListComponent } from './test-task-list/test-task-list.component';
+import { StoryListComponent } from './story-list/story-list.component';
 
 @NgModule({
   imports: [
@@ -25,7 +29,11 @@ import { TaskGantListComponent } from './task-gant-list/task-gant-list.component
     TaskListComponent,
     TaskGroupListComponent,
     TaskTreeListComponent,
-    TaskGantListComponent
+    TaskGantListComponent,
+    BugListComponent,
+    BuildListComponent,
+    TestTaskListComponent,
+    StoryListComponent
   ]
 })
 export class ProjectModule {}

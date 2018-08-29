@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding, Input, ContentChild, TemplateRef, AfterContentInit, Output, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { isString } from 'util';
+import { isString, isArray } from 'util';
 import { NzTabChangeEvent } from 'ng-zorro-antd';
 
 export interface Breadcrumb {
@@ -27,7 +27,7 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
   @Input() actions: TemplateRef<any>;
   @Input() content: string | TemplateRef<any>;
   @Input() contentExtra: TemplateRef<any>;
-  @Input() tabs: TabItem[];
+  @Input() tabs: TabItem[] | TemplateRef<any>;
 
   @Output() tabChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -36,6 +36,7 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
   @ContentChild("actions") tplActions: TemplateRef<any>;
   @ContentChild("content") tplContent: TemplateRef<any>;
   @ContentChild("contentExtra") tplContentExtra: TemplateRef<any>;
+  @ContentChild("tabs") tplTabs: TemplateRef<any>;
 
   @HostBinding("class.page-header")
   get showPageHeader(): boolean {
@@ -67,7 +68,7 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
   }
 
   get showTabs(): boolean {
-    return !!this.tabs && this.tabs.length > 0;
+    return !!this.tabs && (!(this.tabs instanceof TemplateRef) && this.tabs.length > 0 );
   }
 
   constructor(
@@ -93,6 +94,10 @@ export class PageHeaderComponent implements OnInit, AfterContentInit {
 
     if (this.contentExtra && this.contentExtra instanceof TemplateRef) {
       this.tplContentExtra = this.contentExtra;
+    }
+
+    if (this.tabs && this.tabs instanceof TemplateRef) {
+      this.tplTabs = this.tabs;
     }
 
   }
