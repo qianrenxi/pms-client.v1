@@ -1,0 +1,22 @@
+<nz-layout class="fill">
+  <nz-sider [nzCollapsible]="true" [nzWidth]="200" [nzCollapsedWidth]="64" [nzTrigger]="null" style="border-right: 1px solid #e8e8e8;">
+    <div class="product-select" style="background: #fefefe; height: 64px; overflow: hidden; border-bottom: 1px solid #cccccc;">
+      <h5>Group 1</h5>
+    </div>
+
+    <div class="fill" style="top: 64px; overflow: auto;">
+      <ul nz-menu style="border-right: none;" nzMode="inline">
+        <li nz-menu-item [routerLink]="['./']">概况</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item [routerLink]="['projects']">项目</li>
+        <li nz-menu-item [routerLink]="['members']">成员</li>
+        <li nz-menu-item [routerLink]="['activities']">活动</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item [routerLink]="['setting']">设置</li>
+      </ul>
+    </div>
+  </nz-sider>
+  <nz-content>
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>

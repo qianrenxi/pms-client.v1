@@ -28,6 +28,12 @@
     },
     "pro-demo-e2e": {
       "tags": []
+    },
+    "api-hub": {
+      "tags": []
+    },
+    "api-hub-e2e": {
+      "tags": []
     }
   }
 }

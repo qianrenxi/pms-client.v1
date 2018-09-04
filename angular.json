@@ -343,6 +343,132 @@
           }
         }
       }
+    },
+    "api-hub": {
+      "root": "apps/api-hub/",
+      "sourceRoot": "apps/api-hub/src",
+      "projectType": "application",
+      "prefix": "ah",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/api-hub",
+            "index": "apps/api-hub/src/index.html",
+            "main": "apps/api-hub/src/main.ts",
+            "polyfills": "apps/api-hub/src/polyfills.ts",
+            "tsConfig": "apps/api-hub/tsconfig.app.json",
+            "assets": [
+              "apps/api-hub/src/favicon.ico",
+              "apps/api-hub/src/assets"
+            ],
+            "styles": [
+              "apps/pms-web/src/styles/antd/theme.less",
+              "apps/pms-web/src/styles/bootstrap/bootstrap.scss",
+              "apps/pms-web/src/styles/pms/pms.scss",
+              "apps/api-hub/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/api-hub/src/environments/environment.ts",
+                  "with": "apps/api-hub/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "api-hub:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "api-hub:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "api-hub:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/api-hub/src/test.ts",
+            "polyfills": "apps/api-hub/src/polyfills.ts",
+            "tsConfig": "apps/api-hub/tsconfig.spec.json",
+            "karmaConfig": "apps/api-hub/karma.conf.js",
+            "styles": [
+              "apps/api-hub/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/api-hub/src/favicon.ico",
+              "apps/api-hub/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/api-hub/tsconfig.app.json",
+              "apps/api-hub/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "api-hub-e2e": {
+      "root": "apps/api-hub-e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/api-hub-e2e/protractor.conf.js",
+            "devServerTarget": "api-hub:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "api-hub:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/api-hub-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

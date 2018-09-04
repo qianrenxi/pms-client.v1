@@ -1,0 +1,41 @@
+
+.panel-header {
+  position: relative;
+  padding-right: 2rem;
+  margin-top: -12px;
+  margin-bottom: -12px;
+  margin-left: -12px;
+
+  > .content {
+    padding: 0.75rem;
+    border-bottom: 1px solid #eeeeee;
+
+    > p {
+      margin-bottom: 0;
+    }
+  }
+
+  > .actions {
+    width: 2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    > div {
+      text-align: center;
+      font-size: 1.125rem;
+      line-height: 37px;
+      color: rgba(0, 0, 0, 0.65);
+      border-bottom: 1px solid #eeeeee;
+      border-left: 1px solid #eeeeee;
+    }
+  }
+}
+
+:host .panel-header > .actions ::ng-deep {
+  .ant-dropdown-trigger > i {
+    font-size: 1.125rem;
+    line-height: 37px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+}

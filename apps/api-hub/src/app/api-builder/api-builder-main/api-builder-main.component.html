@@ -1,0 +1,131 @@
+<nz-layout style="height: 100%;">
+  <nz-sider [nzWidth]="320" style="background: #dedede; height: 100%">
+    <div class="p-3" style="background: #eee;">
+      <nz-input-group nzSuffixIcon="anticon anticon-search">
+        <input type="text" nz-input placeholder="输入接口名称或路径">
+      </nz-input-group>
+    </div>
+    <nz-tabset [nzSelectedIndex]="1" [nzAnimated]="{inkBar: true, tabPane: false}">
+      <nz-tab nzTitle="History">
+        设计中
+      </nz-tab>
+      <nz-tab nzTitle="Collections">
+        <ng-container [ngTemplateOutlet]="collections"></ng-container>
+      </nz-tab>
+    </nz-tabset>
+  </nz-sider>
+  <nz-content>
+    <ah-api-editor></ah-api-editor>
+  </nz-content>
+</nz-layout>
+
+<ng-template #collections>
+  <div class="p-2 d-flex">
+    <div>全部 | 我的 | 团队</div>
+    <div class="ml-auto">
+      <a href="javascript:;" (click)="openAddCollection(collectionAddContentTpl)"><i class="anticon anticon-folder-add" style="font-size: 1.125rem;"></i></a>
+      <nz-dropdown nzPlacement="bottomRight" class="ml-2">
+        <a nz-dropdown><i class="anticon anticon-bars" style="font-size: 1.125rem;"></i></a>
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item><a>按名称正序</a></li>
+          <li nz-menu-item><a>按名称倒序</a></li>
+          <li nz-menu-item><a>按创建时间</a></li>
+          <li nz-menu-item><a>按更新时间</a></li>
+          <li nz-menu-item><a>按指定顺序</a></li>
+        </ul>
+      </nz-dropdown>
+    </div>
+  </div>
+
+  <div>
+    <nz-collapse [nzBordered]="false">
+      <nz-collapse-panel
+        *ngFor="let panel of panels; let index=index"
+        [nzHeader]="panelHeader" [nzActive]="panel.active" [nzDisabled]="panel.disabled" [nzShowArrow]="false">
+        <ng-template #panelHeader>
+          <div class="panel-header">
+            <div class="content">
+              <h5>{{panel.name}}</h5>
+              <p>10 个请求</p>
+            </div>
+            <div class="actions" (click)="stopCollapse($event)">
+              <div><i class="anticon anticon-right"></i></div>
+              <div>
+                <nz-dropdown nzPlacement="bottomRight" [nzTrigger]="'click'">
+                  <a nz-dropdown> <i class="anticon anticon-ellipsis"></i></a>
+                  <ul nz-menu nzSelectable>
+                    <li nz-menu-item>分享 Collection</li>
+                    <li nz-menu-item><a>重命名</a></li>
+                    <li nz-menu-item><a>编辑</a></li>
+                    <li nz-menu-item (click)="openAddFolder(folderAddContentTpl)"><a>添加文件夹</a></li>
+                    <li nz-menu-item><a>复制</a></li>
+                    <li nz-menu-item><a>导出</a></li>
+                    <li nz-menu-item><a>监控</a></li>
+                    <li nz-menu-item><a>Mock</a></li>
+                    <li nz-menu-item><a>发布文档</a></li>
+                    <li nz-menu-item><a>删除</a></li>
+                  </ul>
+                </nz-dropdown>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ah-api-tree *ngIf="index == 0; else emptyBlock"></ah-api-tree>
+        <ng-template #emptyBlock>
+          <a>Add Requests</a> to this collection and <a>create folders</a> to organize them
+        </ng-template>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </div>
+</ng-template>
+
+<ng-template #collectionAddContentTpl>
+  <nz-form-item>
+    <nz-form-label>名称</nz-form-label>
+    <input nz-input placeholder="请输入名称">
+  </nz-form-item>
+  <div>
+    <nz-tabset>
+      <nz-tab nzTitle="Description">
+        <p>This description will show in your collection’s documentation, along with the descriptions of its folders and requests.</p>
+        <textarea nz-input [nzAutosize]="{minRows: 12}" placeholder=""></textarea>
+      </nz-tab>
+      <nz-tab nzTitle="Authorization">
+        <p>This authorization method will be used for every request in this collection. You can override this by specifying one in the request.</p>
+      </nz-tab>
+      <nz-tab nzTitle="Pre-request Scripts">
+        <p>This script will execute before every request in this collection. Learn more about Postman’s execution order.</p>
+      </nz-tab>
+      <nz-tab nzTitle="Tests">
+        <p>These tests will execute after every request in this collection. Learn more about Postman’s execution order.</p>
+      </nz-tab>
+      <nz-tab nzTitle="Variables">
+        <p>These variables are specific to this collection and its requests. Learn more about collection variables.</p>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+</ng-template>
+
+<ng-template #folderAddContentTpl>
+    <nz-form-item>
+      <nz-form-label>名称</nz-form-label>
+      <input nz-input placeholder="请输入名称">
+    </nz-form-item>
+    <div>
+      <nz-tabset>
+        <nz-tab nzTitle="Description">
+          <p>This description will show in your collection’s documentation, along with the descriptions of its folders and requests.</p>
+          <textarea nz-input [nzAutosize]="{minRows: 12}" placeholder=""></textarea>
+        </nz-tab>
+        <nz-tab nzTitle="Authorization">
+          <p>This authorization method will be used for every request in this collection. You can override this by specifying one in the request.</p>
+        </nz-tab>
+        <nz-tab nzTitle="Pre-request Scripts">
+          <p>This script will execute before every request in this collection. Learn more about Postman’s execution order.</p>
+        </nz-tab>
+        <nz-tab nzTitle="Tests">
+          <p>These tests will execute after every request in this collection. Learn more about Postman’s execution order.</p>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </ng-template>

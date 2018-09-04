@@ -1,0 +1,54 @@
+<ap-page-header title="Group 1">
+  <ng-template #logo>
+    <img src="http://git.parim.net/uploads/group/avatar/212/34739_20160315114258.gif" alt="Group 1" style="width: 96px; height: 96px;">
+  </ng-template>
+  <ng-template #content>
+    <div>@张三</div>
+    <div>组名称的描述</div>
+  </ng-template>
+</ap-page-header>
+
+<div class="page-content">
+  <nz-row nzGutter="16">
+    <nz-col nzSpan="16">
+      <ng-container [ngTemplateOutlet]="activityPanel"></ng-container>
+    </nz-col>
+    <nz-col nzSpan="8">
+        <ng-container [ngTemplateOutlet]="projectPanel"></ng-container>
+    </nz-col>
+  </nz-row>
+</div>
+
+<ng-template #activityPanel>
+  <nz-card style="width: 100%;">
+    <nz-card-tab>
+      <nz-tabset nzSize="large" [(nzSelectedIndex)]="idx">
+        <nz-tab nzTitle="article"></nz-tab>
+        <nz-tab nzTitle="app"></nz-tab>
+        <nz-tab nzTitle="project"></nz-tab>
+      </nz-tabset>
+    </nz-card-tab>
+    <ng-container *ngIf="idx === 0">Content article</ng-container>
+    <ng-container *ngIf="idx === 1">Content app</ng-container>
+    <ng-container *ngIf="idx === 2">Content project</ng-container>
+  </nz-card>
+</ng-template>
+
+<ng-template #projectPanel>
+ <nz-card nzTitle="激活的项目">
+   <nz-list [nzDataSource]="projects" [nzRenderItem]="item">
+     <ng-template #item let-i>
+       <nz-list-item>
+         <nz-list-item-meta
+           [nzTitle]="itemTitle"
+           [nzAvatar]="i.avatar"
+           [nzDescription]="i.description">
+           <ng-template #itemTitle>
+             <a [routerLink]="['/project', i.id]" routerLinkActive="router-link-active" >{{i.name}}</a>
+           </ng-template>
+         </nz-list-item-meta>
+       </nz-list-item>
+     </ng-template>
+   </nz-list>
+ </nz-card>
+</ng-template>
