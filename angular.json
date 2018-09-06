@@ -189,6 +189,18 @@
       "projectType": "library",
       "prefix": "ap",
       "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "libs/ng-antd-pro/tsconfig.lib.json",
+            "project": "libs/ng-antd-pro/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "libs/ng-antd-pro/ng-package.prod.json"
+            }
+          }
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {

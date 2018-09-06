@@ -9,6 +9,13 @@
     "@angular-devkit/core" "0.7.4"
     rxjs "^6.0.0"
 
+"@angular-devkit/architect@0.7.5":
+  version "0.7.5"
+  resolved "http://registry.npm.taobao.org/@angular-devkit/architect/download/@angular-devkit/architect-0.7.5.tgz#e2d856b671fe8b0615db1efc144a7f75b55fb6e1"
+  dependencies:
+    "@angular-devkit/core" "0.7.5"
+    rxjs "^6.0.0"
+
 "@angular-devkit/build-angular@~0.7.4":
   version "0.7.4"
   resolved "http://r.cnpmjs.org/@angular-devkit/build-angular/download/@angular-devkit/build-angular-0.7.4.tgz#490c0d7f0a5c303b3c06248d823aa5b89960def1"
@@ -98,16 +105,25 @@
     rxjs "^6.0.0"
     source-map "^0.5.6"
 
-"@angular-devkit/schematics@0.7.4":
-  version "0.7.4"
-  resolved "http://registry.npm.taobao.org/@angular-devkit/schematics/download/@angular-devkit/schematics-0.7.4.tgz#18d7a58ab67acab4b6f404bd65e8765a581307ed"
+"@angular-devkit/core@0.7.5":
+  version "0.7.5"
+  resolved "http://registry.npm.taobao.org/@angular-devkit/core/download/@angular-devkit/core-0.7.5.tgz#49f7854ccadf3ddda8d0ea4359543a1cbdc6854d"
   dependencies:
-    "@angular-devkit/core" "0.7.4"
+    ajv "~6.4.0"
+    chokidar "^2.0.3"
+    rxjs "^6.0.0"
+    source-map "^0.5.6"
+
+"@angular-devkit/schematics@0.7.5":
+  version "0.7.5"
+  resolved "http://registry.npm.taobao.org/@angular-devkit/schematics/download/@angular-devkit/schematics-0.7.5.tgz#f46b121f29cb40ad6095285d27a515114a56c5d6"
+  dependencies:
+    "@angular-devkit/core" "0.7.5"
     rxjs "^6.0.0"
 
-"@angular/animations@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/animations/download/@angular/animations-6.1.4.tgz#ca17acd62b9328404671a569fbf3065472527174"
+"@angular/animations@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/animations/download/@angular/animations-6.1.6.tgz#25a9cd87303aec5556c20631d087447de2330e87"
   dependencies:
     tslib "^1.9.0"
 
@@ -123,73 +139,73 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/cli@6.1.4":
-  version "6.1.4"
-  resolved "http://registry.npm.taobao.org/@angular/cli/download/@angular/cli-6.1.4.tgz#1ec6d7639e31eaf6247c5146814fd2aa099eb2bb"
+"@angular/cli@6.1.5":
+  version "6.1.5"
+  resolved "http://registry.npm.taobao.org/@angular/cli/download/@angular/cli-6.1.5.tgz#312c062631285ff06fd07ecde8afe22cdef5a0e1"
   dependencies:
-    "@angular-devkit/architect" "0.7.4"
-    "@angular-devkit/core" "0.7.4"
-    "@angular-devkit/schematics" "0.7.4"
-    "@schematics/angular" "0.7.4"
-    "@schematics/update" "0.7.4"
+    "@angular-devkit/architect" "0.7.5"
+    "@angular-devkit/core" "0.7.5"
+    "@angular-devkit/schematics" "0.7.5"
+    "@schematics/angular" "0.7.5"
+    "@schematics/update" "0.7.5"
     opn "^5.3.0"
     rxjs "^6.0.0"
     semver "^5.1.0"
     symbol-observable "^1.2.0"
     yargs-parser "^10.0.0"
 
-"@angular/common@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/common/download/@angular/common-6.1.4.tgz#825de5b1fb98db5a1d3d2253ad7181bb25477551"
+"@angular/common@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/common/download/@angular/common-6.1.6.tgz#16597d89dddd72a606d3cc7125ffa30a87f5ee09"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/compiler-cli@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/compiler-cli/download/@angular/compiler-cli-6.1.4.tgz#65f4c4382bb180d22905db57e28a4ca728b7bf8c"
+"@angular/compiler-cli@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/compiler-cli/download/@angular/compiler-cli-6.1.6.tgz#cccebfaf66af3b7c19dd528732b945ce378bd65f"
   dependencies:
     chokidar "^1.4.2"
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
     tsickle "^0.32.1"
 
-"@angular/compiler@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/compiler/download/@angular/compiler-6.1.4.tgz#479e792ce012dc8481f1d87b919fcddb11c8eee0"
+"@angular/compiler@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/compiler/download/@angular/compiler-6.1.6.tgz#2c858fe78ad1ca5bb3c886bd638bbb144af36e06"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/core/download/@angular/core-6.1.4.tgz#2602ecc031bbb4ad968a7db78786017e92d19b98"
+"@angular/core@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/core/download/@angular/core-6.1.6.tgz#130758ad49cad5f6f075693f6496bbc7d510db3b"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/forms@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/forms/download/@angular/forms-6.1.4.tgz#d0b83f9cd4cb35f58ee67766d17aae0cbd7de561"
+"@angular/forms@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/forms/download/@angular/forms-6.1.6.tgz#1c4936993f2dbcee516cb547a534da3c70f84b76"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/language-service@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/language-service/download/@angular/language-service-6.1.4.tgz#946a70e1afbf83dbae4c31b64784a5a77ae07e53"
+"@angular/language-service@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/language-service/download/@angular/language-service-6.1.6.tgz#c9d549abd3f6ffcaad929fb0406b53314dd64ebc"
 
-"@angular/platform-browser-dynamic@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/platform-browser-dynamic/download/@angular/platform-browser-dynamic-6.1.4.tgz#1af3549decadfb8e73513d917eaa5479184c39ea"
+"@angular/platform-browser-dynamic@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/platform-browser-dynamic/download/@angular/platform-browser-dynamic-6.1.6.tgz#49c2048d61b6d0958b2f0deb68cebe638b2f7f63"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/platform-browser/download/@angular/platform-browser-6.1.4.tgz#a5763f549f2073ba30b9d8baf8512c8076e8d58b"
+"@angular/platform-browser@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/platform-browser/download/@angular/platform-browser-6.1.6.tgz#9a9498aa455978e974436000ddde8af9f64eef13"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/router@6.1.4":
-  version "6.1.4"
-  resolved "http://r.cnpmjs.org/@angular/router/download/@angular/router-6.1.4.tgz#ec6d7400baea46386e3bbcf3e3acb0135f368fac"
+"@angular/router@6.1.6":
+  version "6.1.6"
+  resolved "http://registry.npm.taobao.org/@angular/router/download/@angular/router-6.1.6.tgz#d280e014e5b4399d9631ac9cfd3dfde0cf3f76ed"
   dependencies:
     tslib "^1.9.0"
 
@@ -226,9 +242,9 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
-"@nrwl/nx@6.2.1":
-  version "6.2.1"
-  resolved "http://registry.npm.taobao.org/@nrwl/nx/download/@nrwl/nx-6.2.1.tgz#b75a5c35bab53675a89320e1d8d16f40b70e66d1"
+"@nrwl/nx@6.3.0":
+  version "6.3.0"
+  resolved "http://registry.npm.taobao.org/@nrwl/nx/download/@nrwl/nx-6.3.0.tgz#b372509b79346351adfff0a69bd19944b06210e6"
 
 "@nrwl/schematics@6.2.1":
   version "6.2.1"
@@ -248,20 +264,20 @@
     yargs "^11.0.0"
     yargs-parser "10.0.0"
 
-"@schematics/angular@0.7.4":
-  version "0.7.4"
-  resolved "http://registry.npm.taobao.org/@schematics/angular/download/@schematics/angular-0.7.4.tgz#03012ca1fbc161b137dabc26ba04bd31d2ca687e"
+"@schematics/angular@0.7.5":
+  version "0.7.5"
+  resolved "http://registry.npm.taobao.org/@schematics/angular/download/@schematics/angular-0.7.5.tgz#ccb5ce587161b24042195e100be556ae19b3b7f6"
   dependencies:
-    "@angular-devkit/core" "0.7.4"
-    "@angular-devkit/schematics" "0.7.4"
+    "@angular-devkit/core" "0.7.5"
+    "@angular-devkit/schematics" "0.7.5"
     typescript ">=2.6.2 <2.10"
 
-"@schematics/update@0.7.4":
-  version "0.7.4"
-  resolved "http://registry.npm.taobao.org/@schematics/update/download/@schematics/update-0.7.4.tgz#831b77c032a82d7c3dd9f9257bd7be68328de1bb"
+"@schematics/update@0.7.5":
+  version "0.7.5"
+  resolved "http://registry.npm.taobao.org/@schematics/update/download/@schematics/update-0.7.5.tgz#c9cc68c4464ea4e29a2f3a7254172df768c86ac4"
   dependencies:
-    "@angular-devkit/core" "0.7.4"
-    "@angular-devkit/schematics" "0.7.4"
+    "@angular-devkit/core" "0.7.5"
+    "@angular-devkit/schematics" "0.7.5"
     npm-registry-client "^8.5.1"
     rxjs "^6.0.0"
     semver "^5.3.0"
@@ -6226,7 +6242,13 @@ rxjs-compat@6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.0.0.tgz#2496403f74042d07899faeeac0bd703e4bce6710"
 
-rxjs@6.2.2, rxjs@^6.0.0:
+rxjs@6.3.2:
+  version "6.3.2"
+  resolved "http://registry.npm.taobao.org/rxjs/download/rxjs-6.3.2.tgz#6a688b16c4e6e980e62ea805ec30648e1c60907f"
+  dependencies:
+    tslib "^1.9.0"
+
+rxjs@^6.0.0:
   version "6.2.2"
   resolved "http://registry.npm.taobao.org/rxjs/download/rxjs-6.2.2.tgz#eb75fa3c186ff5289907d06483a77884586e1cf9"
   dependencies:
