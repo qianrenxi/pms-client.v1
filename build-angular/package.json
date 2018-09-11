@@ -35,6 +35,7 @@
       "@angular-devkit/architect": ">=0.7.4",
       "@angular-devkit/build-angular": ">=0.7.4",
       "@angular-devkit/core": "^0.7.4",
+      "@angular-devkit/build-webpack": "^0.7.4",
       "webpack-api-mocker": "^1.5.10"
     }
   }
