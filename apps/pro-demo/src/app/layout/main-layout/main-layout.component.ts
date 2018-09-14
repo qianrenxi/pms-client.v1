@@ -47,6 +47,11 @@ export class MainLayoutComponent implements OnInit {
           authority: 'admin',
           path: 'advanced-form',
         },
+        {
+          name: '动态表单',
+          authority: 'admin',
+          path: 'dynamic-form',
+        },
       ],
     },
     {

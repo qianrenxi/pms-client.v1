@@ -8,11 +8,13 @@ import { ResultComponent } from './result/result.component';
 import { ExceptionComponent } from './exception/exception.component';
 import { DescriptionComponent } from './description/description.component';
 import { DescriptionListComponent } from './description-list/description-list.component';
+import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgZorroAntdModule,
+    DynamicFormModule,
   ],
   declarations: [
     PageHeaderComponent,
@@ -23,6 +25,7 @@ import { DescriptionListComponent } from './description-list/description-list.co
     DescriptionListComponent,
   ],
   exports: [
+    DynamicFormModule,
     PageHeaderComponent,
     AvatarListComponent,
     ResultComponent,
