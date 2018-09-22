@@ -20,7 +20,7 @@
 </form>
 
 <ng-template #formItemTpl let-field let-flex="flex">
-  <nz-form-item [nzFlex]="!!flex" [formGroup]="formGroup">
+  <nz-form-item [nzFlex]="!!flex" [formGroup]="field.formGroup">
     <nz-form-label [nzFor]="field.key" [nzRequired]="field.required" [nzSpan]="itemGrid?.label">{{field.label || field.key}}</nz-form-label>
     <nz-form-control [nzSpan]="itemGrid?.control">
       <div [ngSwitch]="field.controlType">
@@ -32,14 +32,16 @@
             <nz-option *ngFor="let item of field.options" [nzLabel]="item.value" [nzValue]="item.key" [nzDisabled]="item.disabled">
             </nz-option>
           </nz-select>
-
+        </div>
+        <div *ngSwitchCase="'switch'">
+          <nz-switch [formControlName]="field.key"></nz-switch>
         </div>
         <div *ngSwitchDefault>Empty Control</div>
       </div>
       <!-- <ng-container *ngIf="!!field.explain && hasError(field.key)">
         <nz-form-explain *ngFor="let err of getErrorArray(field.key)">{{field.explain.errors[err.key]}}</nz-form-explain>
       </ng-container> 这种写法会出现闪现，多次闪现效果的问题 -->
-      <nz-form-explain *ngIf="formGroup.get(field.key).hasError('required')">必填</nz-form-explain>
+      <nz-form-explain *ngIf="field.formGroup.get(field.key).hasError('required')">必填</nz-form-explain>
     </nz-form-control>
   </nz-form-item>
 </ng-template>

@@ -39,19 +39,36 @@ export class FormBuilderService {
             fieldOptions['asyncValidators'] = asyncValidators;
             fieldOptions['controlType'] = fieldOptions['controlType'] || 'text';
 
+            fieldOptions['formGroup'] = formGroup;
+            fieldOptions['formControl'] = formGroup.get(key);
+
             return this.formFieldFactory.getField(fieldOptions);
+            // TODO: 配置项是 FormControl 对象或 FormGroup 对象等情况的处理，需要处理嵌套
         }).filter(it => !!it);
 
         return {fields, formGroup};
     }
 
-    group2(fieldsConfig: Field<any>[]): {fields: Field<any>[], formGroup: FormGroup, extendForm?: any} {
-        const formGroup: FormGroup = this.fb.group({});
-        const fields: Field<any>[] = fieldsConfig.map(fieldOptions => {
-            const formControl = formGroup.addControl(fieldOptions.key, new FormControl());
-            return this.formFieldFactory.getField(fieldOptions);
-        }).filter(it => !!it);
+    group2(fieldsConfig: Field<any>[], parentFormGroup?: FormGroup): {fields: Field<any>[], formGroup: FormGroup, extendForm?: any} {
+        const formGroup: FormGroup = parentFormGroup || this.fb.group({});
+        const _fields: Field<any>[] = [];
+        fieldsConfig.forEach(fieldOptions => {
+            // 处理嵌套，临时方案
+            if (fieldOptions.fields && Array.isArray(fieldOptions.fields)) {
+                const fg = new FormGroup({});
+                formGroup.addControl(fieldOptions.key, fg);
+                const {fields} = this.group2(fieldOptions.fields, fg);
+                _fields.push(...fields);
+            } else {
+                const formControl = formGroup.addControl(fieldOptions.key, new FormControl(fieldOptions.value));
+                fieldOptions['formGroup'] = formGroup;
+                fieldOptions['formControl'] = formGroup.get(fieldOptions.key);
+                const field = this.formFieldFactory.getField(fieldOptions);
+                _fields.push(field);
+            }
+        })
+        _fields.filter(it => !!it);
 
-        return {fields, formGroup};
+        return {fields: _fields, formGroup};
     }
 }
