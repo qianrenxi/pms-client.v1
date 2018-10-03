@@ -166,6 +166,17 @@ export class MainLayoutComponent implements OnInit {
         },
       ],
     },
+    {
+      name: '工具',
+      icon: 'tool',
+      path: 'utils',
+      children: [
+        {
+          name: '拖放',
+          path: 'dragDrop'
+        }
+      ]
+    }
   ];
 
   constructor() { }

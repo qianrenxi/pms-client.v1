@@ -1,0 +1,67 @@
+
+.box {
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    background: greenyellow;
+    border: 1px solid #dedede;
+    text-align: center;
+    line-height: 48px;
+    cursor: pointer;
+  
+    &.resize-box {
+      width: 400px;
+      height: 180px;
+      line-height: 180px;
+    }
+  
+    &.dragging {
+      background: crimson;
+    }
+  
+    &.sortable.dragging {
+      background: none;
+      border: 1px dashed black;
+      color: transparent;
+    }
+  }
+  
+  .area {
+    background: #c0ffee;
+    padding: 40px;
+    margin: 80px;
+    position: relative;
+  }
+  
+  ul.sortable-list {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    // flex-direction: column;
+    flex-direction: column-reverse; // test
+  
+    &.horizontal {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+  
+  .dropzone {
+    padding: 20px;
+    margin: 20px 0;
+    background: lightgray;
+    min-height: 200px;
+    border: 1px solid black;
+  
+    &.dropzone-activated {
+      border-color: red;
+      
+      // &.dropzone-entered {
+      //   background: #efefef;
+      // }
+    }
+  
+    &.dropzone-entered {
+      background: #efefef;
+    }
+  }

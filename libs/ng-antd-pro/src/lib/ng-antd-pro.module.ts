@@ -9,12 +9,14 @@ import { ExceptionComponent } from './exception/exception.component';
 import { DescriptionComponent } from './description/description.component';
 import { DescriptionListComponent } from './description-list/description-list.component';
 import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
+import { DragDropModule } from './drag-drop/drag-drop.module';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgZorroAntdModule,
     DynamicFormModule,
+    DragDropModule,
   ],
   declarations: [
     PageHeaderComponent,
@@ -26,6 +28,7 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
   ],
   exports: [
     DynamicFormModule,
+    DragDropModule,
     PageHeaderComponent,
     AvatarListComponent,
     ResultComponent,

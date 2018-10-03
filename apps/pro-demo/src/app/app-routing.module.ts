@@ -14,6 +14,7 @@ const routes: Routes = [
             { path: 'list', loadChildren: './list/list.module#ListModule'},
             { path: 'profile', loadChildren: './profile/profile.module#ProfileModule'},
             { path: 'result', loadChildren: './result/result.module#ResultModule'},
+            { path: 'utils', loadChildren: './utils/utils.module#UtilsModule'},
         ]
     },
     { path: 'user', loadChildren: './user/user.module#UserModule'}
