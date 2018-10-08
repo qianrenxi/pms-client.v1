@@ -5,6 +5,8 @@
     <ul class="draggable-list">
       <li *ngFor="let item of itemList" apDraggable2>
         <span>{{item}}</span>
+
+        <div *apDraggableHelper2 class="drag-helper">{{item}} helper</div>
       </li>
     </ul>
   </nz-card>

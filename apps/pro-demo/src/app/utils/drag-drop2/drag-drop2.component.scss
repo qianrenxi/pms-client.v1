@@ -26,3 +26,12 @@ ul.draggable-list {
         }
     }
 }
+
+.drag-helper {
+    background: #4a90e2;
+    border: 1px solid #cccccc;
+    border-radius: 14px;
+    color: #ffffff;
+    max-width: 60px;
+    z-index: 10000;
+}

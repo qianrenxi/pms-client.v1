@@ -61,7 +61,7 @@ export class DraggableHelperDirective implements OnInit, OnDestroy {
 
   private onDragMove(event: PointerEvent): void {
     // position the helper
-    if (!this.overlayRef.hasAttached) {
+    if (!this.overlayRef.hasAttached()) {
       this.overlayRef.attach(new TemplatePortal(this.templateRef, this.viewContainerRef));
     }
 

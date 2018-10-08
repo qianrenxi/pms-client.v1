@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostBinding, Output, EventEmitter, HostListener 
 export class DraggableDirective {
 
   @Output() dragStart = new EventEmitter<DragEvent>();
-  @Output() drag = new EventEmitter<DragEvent>();
+  @Output() dragMove = new EventEmitter<DragEvent>();
   @Output() dragEnd = new EventEmitter<DragEvent>();
   
   @HostBinding('attr.draggable') draggable = true;
@@ -14,7 +14,7 @@ export class DraggableDirective {
   @HostBinding('class.dragging') dragging = false;
 
   constructor(
-    private element: ElementRef
+    public element: ElementRef
   ) { }
 
   @HostListener(':dragstart', ['$event'])
@@ -35,20 +35,25 @@ export class DraggableDirective {
     } catch (error) {
       // empty
     }
-
-    event.dataTransfer.setDragImage(null, 0, 0);
-
+    
     this.dragStart.emit(event);
   }
 
   @HostListener(':drag', ['$event'])
   onDrag(event: DragEvent): void {
     console.log('Dragging');
+    // event.stopPropagation();
+    // event.preventDefault();
+    // this.drag.emit(event);
+    this.dragMove.emit(event);
   }
 
   @HostListener(':dragend', ['$event'])
   onDragEnd(event: DragEvent): void {
-    console.log('Drag end')
+    console.log('Drag end');
+    event.preventDefault();
+    event.stopPropagation();
+    this.dragEnd.emit(event);
   }
 
 }
