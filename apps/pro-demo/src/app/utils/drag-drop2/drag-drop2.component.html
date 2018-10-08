@@ -1,0 +1,11 @@
+<ap-page-header title="新拖拽"></ap-page-header>
+
+<div class="page-content">
+  <nz-card [nzBordered]="false">
+    <ul class="draggable-list">
+      <li *ngFor="let item of itemList" apDraggable2>
+        <span>{{item}}</span>
+      </li>
+    </ul>
+  </nz-card>
+</div>

@@ -10,6 +10,7 @@ import { DescriptionComponent } from './description/description.component';
 import { DescriptionListComponent } from './description-list/description-list.component';
 import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
 import { DragDropModule } from './drag-drop/drag-drop.module';
+import { DragDrop2Module } from './drag-drop2/drag-drop2.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +18,7 @@ import { DragDropModule } from './drag-drop/drag-drop.module';
     NgZorroAntdModule,
     DynamicFormModule,
     DragDropModule,
+    DragDrop2Module,
   ],
   declarations: [
     PageHeaderComponent,
@@ -29,6 +31,7 @@ import { DragDropModule } from './drag-drop/drag-drop.module';
   exports: [
     DynamicFormModule,
     DragDropModule,
+    DragDrop2Module,
     PageHeaderComponent,
     AvatarListComponent,
     ResultComponent,

@@ -174,6 +174,10 @@ export class MainLayoutComponent implements OnInit {
         {
           name: '拖放',
           path: 'dragDrop'
+        },
+        {
+          name: '拖放2',
+          path: 'dragDrop2'
         }
       ]
     }
