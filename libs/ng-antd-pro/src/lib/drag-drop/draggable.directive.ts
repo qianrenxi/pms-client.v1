@@ -56,7 +56,6 @@ export class DraggableDirective {
 
   // @HostListener('document:pointermove', ['$event'])
   onPointerMove(event: PointerEvent): void {
-    console.log('document:pointermove', !this.dragging , event.pointerId !== this.pointerId)
     if (!this.dragging || event.pointerId !== this.pointerId) {
       return;
     }
