@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, OnInit, Renderer2, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostBinding, OnInit, Renderer2, HostListener, NgZone } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { MovableDirective } from './movable.directive';
 
@@ -36,8 +36,9 @@ export class MovableBoxDirective extends MovableDirective implements OnInit {
     protected sanitizer: DomSanitizer,
     private elementRef: ElementRef,
     private renderer: Renderer2,
+    protected ngZone: NgZone
   ) {
-    super(sanitizer, elementRef);
+    super(sanitizer, elementRef, ngZone);
   }
 
   ngOnInit() {

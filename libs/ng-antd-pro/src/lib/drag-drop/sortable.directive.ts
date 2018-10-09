@@ -1,4 +1,4 @@
-import { Directive, forwardRef, ElementRef, HostBinding } from '@angular/core';
+import { Directive, forwardRef, ElementRef, HostBinding, NgZone } from '@angular/core';
 import { DraggableDirective } from './draggable.directive';
 
 @Directive({
@@ -11,8 +11,8 @@ export class SortableDirective extends DraggableDirective {
 
   @HostBinding('class.sortable') sortable = true;
 
-  constructor(public element: ElementRef) {
-    super(element);
+  constructor(public element: ElementRef, protected ngZone: NgZone) {
+    super(element, ngZone);
   }
 
 }

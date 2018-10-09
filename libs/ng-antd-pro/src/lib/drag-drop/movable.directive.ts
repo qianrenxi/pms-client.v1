@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input, NgZone } from '@angular/core';
 import { DraggableDirective } from './draggable.directive';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
@@ -26,8 +26,8 @@ export class MovableDirective extends DraggableDirective {
   // tslint:disable-next-line:no-input-rename
   @Input('apMovableReset') reset = false;
 
-  constructor(protected sanitizer: DomSanitizer, public element: ElementRef) {
-    super(element);
+  constructor(protected sanitizer: DomSanitizer, public element: ElementRef, protected ngZone: NgZone) {
+    super(element, ngZone);
   }
 
   @HostListener('dragStart', ['$event'])
