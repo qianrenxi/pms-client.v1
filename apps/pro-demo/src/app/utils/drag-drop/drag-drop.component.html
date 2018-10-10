@@ -1,3 +1,37 @@
-<p>
-  drag-drop works!
-</p>
+<ap-page-header title="Drag and Drop"></ap-page-header>
+
+<div class="page-content">
+  <nz-card [nzBordered]="false">
+    <ng-container [ngTemplateOutlet]="partOne"></ng-container>
+    <ng-container [ngTemplateOutlet]="partTwo"></ng-container>
+    <ng-container [ngTemplateOutlet]="partThree"></ng-container>
+  </nz-card>
+</div>
+
+<ng-template #partOne>
+  <h2>Part I: Init Draggable Directive</h2>
+  <div apDraggable class="draggable-box">Draggable Box</div>
+</ng-template>
+
+<ng-template #partTwo>
+  <h2>Part II: Sortable List Directive</h2>
+  <ul apSortableList class="sortable-list" (sort)="onSort($event)">
+    <li *ngFor="let item of sortableList" apSortable class="draggable-box">{{item}}</li>
+  </ul>
+</ng-template>
+
+<ng-template #partThree>
+  <h2>Part III: Cross Sortable List Directive</h2>
+  <div class="d-flex">
+    <div class="cross-box">
+      <ul apSortableList class="sortable-list" (sort)="onSort($event)">
+        <li *ngFor="let item of sortableList2" apSortable class="draggable-box">{{item}}</li>
+      </ul>
+    </div>
+    <div class="cross-box ml-4">
+      <ul apSortableList class="sortable-list" (sort)="onSort($event)">
+        <li *ngFor="let item of sortableList2" apSortable class="draggable-box">{{item}}</li>
+      </ul>
+    </div>
+  </div>
+</ng-template>

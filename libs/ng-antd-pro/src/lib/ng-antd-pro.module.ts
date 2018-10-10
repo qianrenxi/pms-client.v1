@@ -10,6 +10,8 @@ import { DescriptionComponent } from './description/description.component';
 import { DescriptionListComponent } from './description-list/description-list.component';
 import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
 import { DragDropModule } from './drag-drop/drag-drop.module';
+import { DraggableDirective } from './drag-drop/draggable.directive';
+import { DraggableHelperDirective } from './drag-drop/draggable-helper.directive';
 @NgModule({
   imports: [
     CommonModule,
