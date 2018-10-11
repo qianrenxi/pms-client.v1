@@ -30,7 +30,7 @@ export class SortableDirective extends DraggableDirective {
     @Inject(DOCUMENT) protected _document: Document,
     protected ngZone: NgZone,
     protected dragDropService: DragDropService<DraggableDirective>,
-    private sortableService: SortableService<SortableDirective>
+    private sortableService: SortableService
   ) {
     super(element, _document, ngZone, dragDropService);
 
@@ -98,7 +98,6 @@ export class SortableDirective extends DraggableDirective {
 
   // enter
   // 指另外一个 sortable 进来了
-
   private _enter(event: DragMoveEvent) {
     // console.log('enter');
     this._entered = true;

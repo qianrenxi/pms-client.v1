@@ -6,7 +6,7 @@ import { DragDropService } from './drag-drop.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DroppableService<I> {
+export class DroppableService {
   
   dragStart$: Observable<DragStartEvent>;
   dragMove$: Observable<DragMoveEvent>;
@@ -17,7 +17,6 @@ export class DroppableService<I> {
   private _dragEndSubject = new Subject<DragEndEvent>();
 
   constructor(
-      private dragDropService: DragDropService<I>
   ) {
       this.dragStart$ = this._dragStartSubject.asObservable();
       this.dragMove$ = this._dragMoveSubject.asObservable();

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject } from '@angular/core';
+import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { fromEvent, Subscription } from 'rxjs';
 import { DragDropService } from './drag-drop.service';
@@ -44,7 +44,9 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) protected _document: Document,
     protected ngZone: NgZone,
     protected dragDropService: DragDropService<DraggableDirective>
-  ) { }
+  ) {
+    this.dragDropService.registerDraggable(this);
+  }
 
   ngAfterViewInit() {
     this.ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {

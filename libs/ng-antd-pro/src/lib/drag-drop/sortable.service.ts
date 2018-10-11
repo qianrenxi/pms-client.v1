@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { DragDropService } from './drag-drop.service';
 import { Observable, Subject } from 'rxjs';
 import { DragStartEvent, DragEndEvent, DragMoveEvent } from './drag-events';
 
 @Injectable()
-export class SortableService<I> {
+export class SortableService {
 
     dragStart$: Observable<DragStartEvent>;
     dragMove$: Observable<DragMoveEvent>;
@@ -15,7 +14,6 @@ export class SortableService<I> {
     private _dragEndSubject = new Subject<DragEndEvent>();
 
     constructor(
-        private dragDropService: DragDropService<I>
     ) {
         this.dragStart$ = this._dragStartSubject.asObservable();
         this.dragMove$ = this._dragMoveSubject.asObservable();

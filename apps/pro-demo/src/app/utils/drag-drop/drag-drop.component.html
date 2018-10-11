@@ -16,7 +16,7 @@
 <ng-template #partTwo>
   <h2>Part II: Sortable List Directive</h2>
   <ul apSortableList class="sortable-list" (sort)="onSort($event)">
-    <li *ngFor="let item of sortableList" apSortable class="draggable-box">{{item}}</li>
+    <li *ngFor="let item of sortableList" apSortable apDroppable class="draggable-box">{{item}}</li>
   </ul>
 </ng-template>
 
@@ -25,7 +25,7 @@
   <div class="d-flex">
     <div class="cross-box">
       <ul apSortableList class="sortable-list" (sort)="onSort($event)">
-        <li *ngFor="let item of sortableList2" apSortable class="draggable-box">{{item}}</li>
+        <li *ngFor="let item of sortableList2" apSortable apDroppable class="draggable-box">{{item}}</li>
       </ul>
     </div>
     <div class="cross-box ml-4">
