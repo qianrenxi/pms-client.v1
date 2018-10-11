@@ -14,7 +14,8 @@ interface Point {
 }
 
 @Directive({
-  selector: '[apDraggable]'
+  selector: '[apDraggable]',
+  exportAs: 'apDraggable'
 })
 export class DraggableDirective implements AfterViewInit, OnDestroy {
 

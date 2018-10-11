@@ -3,7 +3,8 @@ import { DragEnterEvent, DragOverEvent, DragLeaveEvent, DropEvent, DragStartEven
 import { DroppableService } from './droppable.service';
 
 @Directive({
-  selector: '[apDroppable]'
+  selector: '[apDroppable]',
+  exportAs: 'apDroppable'
 })
 export class DroppableDirective {
 
@@ -111,7 +112,7 @@ export class DroppableDirective {
 
   // over
   private _over(event: DragMoveEvent) {
-    console.log('over');
+    // console.log('over');
     this._entered = true;
 
     this.dragOver.emit({
@@ -140,7 +141,7 @@ export class DroppableDirective {
 
   // leave
   private _leave(event: DragMoveEvent) {
-    console.log('leave');
+    // console.log('leave');
     this._entered = false;
 
     this.dragLeave.emit({

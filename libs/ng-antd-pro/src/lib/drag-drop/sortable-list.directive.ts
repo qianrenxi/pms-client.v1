@@ -23,9 +23,9 @@ export class SortableListDirective implements DropContainer, AfterContentInit {
 
   ngAfterContentInit() {
     this.sortables.forEach(sortable => {
-      sortable.dragStart.subscribe(() => this._measureClientRects());
+      // sortable.dragStart.subscribe(() => this._measureClientRects());
       // sortable.dragMove.subscribe(e => this.detectSorting(sortable, e)); // 这种处理方式会实时更新DataModel，不是想要的结果
-      sortable.drop.subscribe(e => this._onDrop(e))
+      sortable.sortableDrop.subscribe(e => this._onDrop(e))
     })
   }
 
@@ -34,11 +34,14 @@ export class SortableListDirective implements DropContainer, AfterContentInit {
   }
 
   private _onDrop({source, target}) {
+    // console.log(source.element.nativeElement === target.element.nativeElement)
     // console.log(source, target);
-    if (!this.sortables.some(it => it === source)) {
+    const _source = this.sortables.find(it => source.element.nativeElement === it.element.nativeElement);
+    // console.log(_source, target);
+    if (!this.sortables.some(it => it === _source)) {
       return;
     }
-    const sourceIndex = this.sortables.toArray().indexOf(source);
+    const sourceIndex = this.sortables.toArray().indexOf(_source);
     let targetIndex = this.sortables.toArray().indexOf(target);
 
     const size = this.sortables.length;
