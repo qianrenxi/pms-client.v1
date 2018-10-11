@@ -203,6 +203,8 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
       setTransform(helper, elementRect.left, elementRect.top);
     }
 
+    helper.className = helper.className + ' ap-draggable-helper'
+
     extendStyles(helper.style, {
       position: 'fixed',
       top: '0',

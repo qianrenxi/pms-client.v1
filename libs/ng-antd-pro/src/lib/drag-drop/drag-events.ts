@@ -7,7 +7,10 @@ export enum DragEventType {
     dragStart = "dragStart",
     dragMove = "dragMove",
     dragEnd = "dragEnd",
-
+    dragEnter = "dragEnter",
+    dragOver = "dragOver",
+    dragLeave = "dragLeave",
+    drop = "drop"
 }
 
 export interface DragStartEvent {
@@ -28,4 +31,36 @@ export interface DragEndEvent {
     source: any;
 }
 
-export type ApDragEvent = DragStartEvent | DragMoveEvent | DragEndEvent;
+export interface DragEnterEvent {
+    type: DragEventType;
+    source: any;
+    target: any;
+    pointerPosition: {x: number, y: number};
+    event: MouseEvent | TouchEvent;
+}
+
+export interface DragOverEvent {
+    type: DragEventType;
+    source: any;
+    target: any;
+    pointerPosition: {x: number, y: number};
+    event: MouseEvent | TouchEvent;
+}
+
+export interface DragLeaveEvent {
+    type: DragEventType;
+    source: any;
+    target: any;
+    pointerPosition: {x: number, y: number};
+    event: MouseEvent | TouchEvent;
+}
+
+export interface DropEvent {
+    type: DragEventType;
+    source: any;
+    target: any;
+    pointerPosition: {x: number, y: number};
+    event: MouseEvent | TouchEvent;
+}
+
+export type ApDragEvent = DragStartEvent | DragMoveEvent | DragEndEvent | DragEnterEvent | DragOverEvent | DragLeaveEvent | DropEvent;

@@ -6,6 +6,8 @@ import { DraggableHelperDirective } from './draggable-helper.directive';
 import { SortableDirective } from './sortable.directive';
 import { SortableListDirective } from './sortable-list.directive';
 import { SortableService } from './sortable.service';
+import { DroppableDirective } from './droppable.directive';
+import { DroppableService } from './droppable.service';
 
 @NgModule({
   imports: [
@@ -16,18 +18,21 @@ import { SortableService } from './sortable.service';
     DraggableHelperDirective,
     SortableDirective,
     SortableListDirective,
+    DroppableDirective,
   ],
   exports: [
     DraggableDirective,
     DraggableHelperDirective,
     SortableDirective,
     SortableListDirective,
+    DroppableDirective,
   ],
   entryComponents: [
   ],
   providers: [
     DragDropService,
-    SortableService
+    SortableService,
+    DroppableService,
   ]
 })
 export class DragDropModule { }
