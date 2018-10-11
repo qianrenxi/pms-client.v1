@@ -36,6 +36,8 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
   @ContentChild(DraggableHelperDirective) draggableHelper: DraggableHelperDirective; 
 
+  @Input() dragData: any;
+
   @Output() dragStart: EventEmitter<DragStartEvent> = new EventEmitter<DragStartEvent>();
   @Output() dragMove: EventEmitter<DragMoveEvent> = new EventEmitter<DragMoveEvent>();
   @Output() dragEnd: EventEmitter<DragEndEvent> = new EventEmitter<DragEndEvent>();

@@ -18,6 +18,8 @@ export class DragDropComponent implements OnInit {
   sortableList1: string[] = [];
   sortableList2: string[] = [];
 
+  draggingData?: any;
+
   constructor(
     private ngZone: NgZone
   ) {
@@ -36,7 +38,16 @@ export class DragDropComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSort({newIndex, currentIndex}) {
+  onDragStart(data) {
+    console.log('start', data)
+    this.draggingData = data;
+  }
+
+  onDragEnd() {
+    this.draggingData = null;
+  }
+
+  onSort(list: any[], {newIndex, currentIndex}) {
     // 这个是置换
     // this.sortableList.splice(newIndex, 1, ...this.sortableList.splice(currentIndex, 1, this.sortableList[newIndex]));
 
@@ -46,18 +57,34 @@ export class DragDropComponent implements OnInit {
     }
 
     this.ngZone.run(() =>{ // 为了及时触发视图变更
-      const currObj = this.sortableList[currentIndex];
+      const currObj = list[currentIndex];
       if (currentIndex > newIndex) {
-        this.sortableList.splice(newIndex, 0, currObj);
-        this.sortableList.splice(currentIndex + 1, 1);
+        list.splice(newIndex, 0, currObj);
+        list.splice(currentIndex + 1, 1);
       } else {
-        this.sortableList.splice(newIndex + 1, 0, currObj);
-        this.sortableList.splice(currentIndex, 1);
+        list.splice(newIndex + 1, 0, currObj);
+        list.splice(currentIndex, 1);
       }
       // this.sortableList = [...this.sortableList]; // 此方法也不能及时触发视图变更
     });
 
     // console.log('sorted.................')
+  }
+
+  onAppend(list: any[], {targetIndex}) {
+    // console.log('appending.............', this.draggingData, targetIndex)
+    const oldId = this.sortableList.indexOf(this.draggingData);
+    if (oldId >= 0) {
+      this.sortableList.splice(oldId, 1);
+    }
+
+    if (!!this.draggingData) {
+      this.ngZone.run(() =>{
+        list.splice(targetIndex, 0, this.draggingData);
+      });
+
+      this.draggingData = undefined;
+    }
   }
 
 }
