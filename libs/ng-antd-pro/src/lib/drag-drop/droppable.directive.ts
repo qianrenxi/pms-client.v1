@@ -35,7 +35,9 @@ export class DroppableDirective {
   private _allDragStart(event: DragStartEvent) {
     // console.log('Some drag start...')
     // if (event.source connectedTo this) { ... }
-    this._isActive = true;
+    this.ngZone.run(() => {
+      this._isActive = true;
+    });
     
     if (!this._isActive) {
       return;
@@ -95,13 +97,20 @@ export class DroppableDirective {
     }
 
     // emit sort event >> on sortable-list
+
+    this.ngZone.run(() => {
+      this._isActive = false;
+      this._entered = false;
+    })
   }
 
   // enter
   // 指另外一个 sortable 进来了
   private _enter(event: DragMoveEvent) {
     // console.log('enter');
-    this._entered = true;
+    this.ngZone.run(() => {
+      this._entered = true;
+    });
     
     this.dragEnter.emit({
       type: DragEventType.dragEnter,
@@ -115,7 +124,9 @@ export class DroppableDirective {
   // over
   private _over(event: DragMoveEvent) {
     // console.log('over');
-    this._entered = true;
+    this.ngZone.run(() => {
+      this._entered = true;
+    });
 
     this.dragOver.emit({
       type: DragEventType.dragEnter,
@@ -144,7 +155,9 @@ export class DroppableDirective {
   // leave
   private _leave(event: DragMoveEvent) {
     // console.log('leave');
-    this._entered = false;
+    this.ngZone.run(() => {
+      this._entered = false;
+    });
 
     this.dragLeave.emit({
       type: DragEventType.dragEnter,

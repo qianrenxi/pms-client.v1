@@ -80,7 +80,7 @@ export class SortableListDirective implements DropContainer, AfterContentInit {
         //   targetIndex = size - 1;
         // }
       }
-      this.append.emit({targetIndex: targetIndex});
+      this.append.emit({source: source, targetIndex: targetIndex});
     }
     
 

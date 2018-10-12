@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener, Optional, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener, Optional, ViewContainerRef, EmbeddedViewRef } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { fromEvent, Subscription } from 'rxjs';
 import { DragDropService } from './drag-drop.service';
@@ -22,6 +22,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   protected _document: Document;
   protected _hostElement: HTMLElement;
   private _helperElement: HTMLElement;
+  private _helperRef: EmbeddedViewRef<any>;
 
   private _hasMoved: boolean;
   private _hasStartedDragging: boolean;
@@ -123,11 +124,12 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     }
 
     // ...
+    // then cleanup
+    this._destroyHelper();
+
     // emit dragEnd event
     this.dragEnd.emit({type: DragEventType.dragEnd, source: this});
     // do drag end or drop things
-    // then cleanup
-    this._destroyHelper();
 
     console.log("drag end");
   }
@@ -201,8 +203,8 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
     if (this.draggableHelper) {
       const viewRef = this.viewContainerRef.createEmbeddedView(this.draggableHelper.templateRef);
+      this._helperRef = viewRef;
       helper = viewRef.rootNodes[0];
-      this._helperElement = helper;
       setTransform(helper, this._pickupPositionOnPage.x, this._pickupPositionOnPage.y);
     } else {
       const element = this._hostElement;
@@ -236,7 +238,12 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     if (this._helperElement) {
       this._removeElement(this._helperElement);
     }
-    // ...
+    
+    if (this._helperRef) {
+      this._helperRef.destroy()
+    }
+
+    this._helperElement = this._helperRef = null;
   }
 
   
