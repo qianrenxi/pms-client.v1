@@ -10,7 +10,9 @@ export class DroppableDirective {
 
   private _hostElement: HTMLElement;
 
+  @HostBinding('class.ap-droppable-active')
   private _isActive = false;
+  @HostBinding('class.ap-droppable-over')
   private _entered = false;
 
   @HostBinding('class.ap-droppable') droppableStyleClass = true;

@@ -11,6 +11,12 @@
 <ng-template #partOne>
   <h2>Part I: Init Draggable Directive</h2>
   <div apDraggable class="draggable-box">Draggable Box</div>
+  <div apDraggable class="draggable-box ml-5">
+    Draggable Box Width Helper
+    <div class="draggable-box-helper" *apDraggableHelper>
+      Draggable Helper
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #partTwo>

@@ -26,6 +26,15 @@ $primary-color: #007bff;
   background: #ffffff;
 }
 
+.draggable-box-helper {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid $primary-color;
+  color: #ffffff;
+  background: rgba($color: $primary-color, $alpha: 0.9);
+  border-radius: 2px;
+}
+
 ul.sortable-list {
   padding: 0;
   margin: 0;

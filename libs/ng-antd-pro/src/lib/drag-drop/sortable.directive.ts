@@ -30,7 +30,6 @@ export class SortableDirective {
 
   constructor(
     public element: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) protected _document: Document,
     protected ngZone: NgZone,
     protected dragDropService: DragDropService<DraggableDirective>,
   ) {

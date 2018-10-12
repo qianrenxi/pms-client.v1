@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener } from '@angular/core';
+import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener, Optional, ViewContainerRef } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { fromEvent, Subscription } from 'rxjs';
 import { DragDropService } from './drag-drop.service';
@@ -19,6 +19,7 @@ interface Point {
 })
 export class DraggableDirective implements AfterViewInit, OnDestroy {
 
+  protected _document: Document;
   protected _hostElement: HTMLElement;
   private _helperElement: HTMLElement;
 
@@ -44,10 +45,12 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
   constructor(
     public element: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) protected _document: Document,
+    @Inject(DOCUMENT) _document: any,
+    protected viewContainerRef: ViewContainerRef,
     protected ngZone: NgZone,
     protected dragDropService: DragDropService<DraggableDirective>
   ) {
+    this._document = _document;
     this.dragDropService.registerDraggable(this);
   }
 
@@ -197,7 +200,10 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     let helper: HTMLElement;
 
     if (this.draggableHelper) {
-      
+      const viewRef = this.viewContainerRef.createEmbeddedView(this.draggableHelper.templateRef);
+      helper = viewRef.rootNodes[0];
+      this._helperElement = helper;
+      setTransform(helper, this._pickupPositionOnPage.x, this._pickupPositionOnPage.y);
     } else {
       const element = this._hostElement;
       const elementRect = element.getBoundingClientRect();
