@@ -1,14 +1,16 @@
-import { Directive, HostBinding, Output, EventEmitter, ElementRef, NgZone } from '@angular/core';
+import { Directive, HostBinding, Output, EventEmitter, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { DragEnterEvent, DragOverEvent, DragLeaveEvent, DropEvent, DragStartEvent, DragEndEvent, DragMoveEvent, DragEventType } from './drag-events';
 import { DroppableService } from './droppable.service';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[apDroppable]',
   exportAs: 'apDroppable'
 })
-export class DroppableDirective {
+export class DroppableDirective implements OnDestroy{
 
   private _hostElement: HTMLElement;
+  private _subscription: Subscription[] = [];
 
   @HostBinding('class.ap-droppable-active')
   private _isActive = false;
@@ -27,9 +29,15 @@ export class DroppableDirective {
     protected ngZone: NgZone,
     protected droppableService: DroppableService
   ) {
-    droppableService.dragStart$.subscribe(e => this._allDragStart(e));
-    droppableService.dragMove$.subscribe(e => this._allDragMove(e));
-    droppableService.dragEnd$.subscribe(e => this._allDragEnd(e));
+    this._subscription.push(
+      droppableService.dragStart$.subscribe(e => this._allDragStart(e)),
+      droppableService.dragMove$.subscribe(e => this._allDragMove(e)),
+      droppableService.dragEnd$.subscribe(e => this._allDragEnd(e)),
+    );
+  }
+
+  ngOnDestroy() {
+    this._subscription.forEach(it => it.unsubscribe());
   }
 
   private _allDragStart(event: DragStartEvent) {

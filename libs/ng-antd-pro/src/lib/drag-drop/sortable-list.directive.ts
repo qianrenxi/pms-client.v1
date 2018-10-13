@@ -41,9 +41,10 @@ export class SortableListDirective implements DropContainer, AfterContentInit {
   }
 
   private _measureClientRects() {
-
+    
   }
 
+  // TODO：当列表为空的时候并没有触发此事件，这是有问题的
   private _onDrop({source, target}) {
     // console.log(source.element.nativeElement === target.element.nativeElement)
     // console.log(source, target);
