@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, OnChanges, SimpleChanges, NgZone } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { Field } from '../def/field';
 import { NzListGrid } from 'ng-zorro-antd';
@@ -11,7 +11,7 @@ import { FormBuilderService } from '../form-builder.service';
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss']
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit, OnChanges {
 
   @Input() formGroup: FormGroup;
   @Input() fields: Field<any>[];
@@ -24,10 +24,24 @@ export class DynamicFormComponent implements OnInit {
   @Output() afterInit = new EventEmitter<any>();
 
   constructor(
-    private fb: FormBuilderService
+    private fb: FormBuilderService,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const fieldsConfigChange = changes['fieldsConfig'];
+    if (fieldsConfigChange) {
+      this.ngZone.run(() => {
+        this._initForm();
+      });
+    }
+  }
+
+  private _initForm() {
     if (!!this.fieldsConfig) {
       // 初始化表单
       if (isArray(this.fieldsConfig)) {

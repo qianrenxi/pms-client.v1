@@ -42,7 +42,13 @@ export class FormBuilderService {
             fieldOptions['formGroup'] = formGroup;
             fieldOptions['formControl'] = formGroup.get(key);
 
-            return this.formFieldFactory.getField(fieldOptions);
+            const _field = this.formFieldFactory.getField(fieldOptions);
+            
+            // 还原
+            delete fieldOptions['formGroup'];
+            delete fieldOptions['formControl'];
+
+            return _field;
             // TODO: 配置项是 FormControl 对象或 FormGroup 对象等情况的处理，需要处理嵌套
         }).filter(it => !!it);
 
@@ -64,6 +70,8 @@ export class FormBuilderService {
                 fieldOptions['formGroup'] = formGroup;
                 fieldOptions['formControl'] = formGroup.get(fieldOptions.key);
                 const field = this.formFieldFactory.getField(fieldOptions);
+                delete fieldOptions['formGroup'];
+                delete fieldOptions['formControl'];
                 _fields.push(field);
             }
         })
