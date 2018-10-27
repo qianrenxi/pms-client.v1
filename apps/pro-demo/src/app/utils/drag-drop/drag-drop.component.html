@@ -5,6 +5,7 @@
     <ng-container [ngTemplateOutlet]="partOne"></ng-container>
     <ng-container [ngTemplateOutlet]="partTwo"></ng-container>
     <ng-container [ngTemplateOutlet]="partThree"></ng-container>
+    <ng-container [ngTemplateOutlet]="partFour"></ng-container>
   </nz-card>
 </div>
 
@@ -38,6 +39,42 @@
       <ul apSortableList class="sortable-list" (sort)="onSort(sortableList2, $event)">
         <li *ngFor="let item of sortableList2" apDraggable apDroppable apSortable class="draggable-box">{{item}}</li>
       </ul>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #partFour>
+  <h2>Part IV: Drag Handle</h2>
+  <div apDraggable class="draggable-box">
+    Draggable Box Width Helper 
+    <span apDragHandle>
+      <i class="anticon anticon-form"></i>
+    </span>
+
+    <div class="draggable-box-helper" *apDraggableHelper>
+      Draggable Helper
+    </div>
+  </div>
+  <br>
+  <div apDraggable class="draggable-box mt-4">
+    Draggable Box Outer 
+    <span apDragHandle>
+      <i class="anticon anticon-form"></i>
+    </span>
+
+    <div class="draggable-box-helper" *apDraggableHelper>
+      Draggable Helper Outer
+    </div>
+
+    <div apDraggable class="draggable-box ml-5">
+      Draggable Box Inner
+      <span apDragHandle>
+        <i class="anticon anticon-form"></i>
+      </span>
+  
+      <div class="draggable-box-helper" *apDraggableHelper>
+        Draggable Helper Inner
+      </div>
     </div>
   </div>
 </ng-template>

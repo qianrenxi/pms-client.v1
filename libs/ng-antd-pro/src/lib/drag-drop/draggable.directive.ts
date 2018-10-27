@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener, Optional, ViewContainerRef, EmbeddedViewRef } from '@angular/core';
+import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener, Optional, ViewContainerRef, EmbeddedViewRef, ContentChildren, QueryList } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { fromEvent, Subscription } from 'rxjs';
 import { DragDropService } from './drag-drop.service';
@@ -7,6 +7,8 @@ import { DragStartEvent, DragEventType, DragMoveEvent, DragEndEvent } from './dr
 import { DraggableHelperDirective } from './draggable-helper.directive';
 import { extendStyles } from './drag-styling';
 import { DOCUMENT } from '@angular/common';
+import { DragHandleDirective } from './drag-handle.directive';
+import { AP_DRAG_PARENT } from './drag-parent';
 
 interface Point {
   x: number;
@@ -15,7 +17,11 @@ interface Point {
 
 @Directive({
   selector: '[apDraggable]',
-  exportAs: 'apDraggable'
+  exportAs: 'apDraggable',
+  providers: [{
+    provide: AP_DRAG_PARENT,
+    useExisting: DraggableDirective
+  }]
 })
 export class DraggableDirective implements AfterViewInit, OnDestroy {
 
@@ -35,6 +41,8 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   private _pickupPositionOnPage: Point; // 用户选择元素时的坐标，起始坐标
 
   @HostBinding("class.ap-draggable") draggableStyleClass = true;
+
+  @ContentChildren(DragHandleDirective, {descendants: true}) _handles: QueryList<DragHandleDirective>;
 
   @ContentChild(DraggableHelperDirective) draggableHelper: DraggableHelperDirective; 
 
@@ -79,9 +87,23 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   }
 
   private _pointerDown(event: MouseEvent | TouchEvent) {
+    // Skip handles inside descendant `DraggableDirective` instances.
+    const handles = this._handles.filter(handle => handle._parentDrag === this);
+    
     // Delegate the event based on whether it started from a handle or the element itself.
-    // if ()
-    this._initDrag(this._hostElement, event);
+    if (handles.length) {
+      const targetHandle = handles.find(handle => {
+        const element = handle.element.nativeElement;
+        const target = event.target;
+        return !!target && (target === element || element.contains(target as HTMLElement));
+      });
+
+      if (targetHandle) {
+        this._initDrag(targetHandle.element.nativeElement, event);
+      }
+    } else {
+      this._initDrag(this._hostElement, event);
+    }
   }
 
   private _pointerMove(event: MouseEvent | TouchEvent) {
