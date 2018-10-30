@@ -41,6 +41,9 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   private _pickupPositionOnPage: Point; // 用户选择元素时的坐标，起始坐标
 
   @HostBinding("class.ap-draggable") draggableStyleClass = true;
+  @HostBinding("class.ap-draggable-dragging") get draggingStyleClass() {
+    return this._hasStartedDragging && this._isDragging();
+  }
 
   @ContentChildren(DragHandleDirective, {descendants: true}) _handles: QueryList<DragHandleDirective>;
 
@@ -89,7 +92,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   private _pointerDown(event: MouseEvent | TouchEvent) {
     // Skip handles inside descendant `DraggableDirective` instances.
     const handles = this._handles.filter(handle => handle._parentDrag === this);
-    
+
     // Delegate the event based on whether it started from a handle or the element itself.
     if (handles.length) {
       const targetHandle = handles.find(handle => {
