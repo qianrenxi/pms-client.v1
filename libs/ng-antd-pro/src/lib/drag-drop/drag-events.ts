@@ -16,6 +16,8 @@ export enum DragEventType {
 export interface DragStartEvent {
     type: DragEventType;
     source: any;
+    event: MouseEvent | TouchEvent;
+    startPosition: {x: number, y: number};
 }
 
 export interface DragMoveEvent {
@@ -29,6 +31,7 @@ export interface DragMoveEvent {
 export interface DragEndEvent {
     type: DragEventType;
     source: any;
+    event: MouseEvent | TouchEvent;
 }
 
 export interface DragEnterEvent {

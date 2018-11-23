@@ -11,8 +11,8 @@ type PointerEventHandler = (event: TouchEvent | MouseEvent) => void;
 })
 export class DragDropService<I extends {
     dragStart: EventEmitter<DragStartEvent>,
-    dragMove: EventEmitter<DragStartEvent>,
-    dragEnd: EventEmitter<DragStartEvent>,
+    dragMove: EventEmitter<DragMoveEvent>,
+    dragEnd: EventEmitter<DragEndEvent>,
 }> {
 
     private _document: Document;

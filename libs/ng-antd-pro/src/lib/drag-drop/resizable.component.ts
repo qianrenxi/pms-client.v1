@@ -1,4 +1,5 @@
 import { Component, OnInit, HostBinding, Output, EventEmitter } from '@angular/core';
+import { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-events';
 
 interface Position {
   x: number;
@@ -39,31 +40,38 @@ export class ResizableComponent implements OnInit {
   ngOnInit() {
   }
 
-  onDragStart(e: PointerEvent, i) {
+  onDragStart(e: DragStartEvent, i) {
+    const { startPosition } = e;
     // console.log(e, i);
     // console.log(i, 'drag start');
-    this.startPosition = {x: e.clientX, y: e.clientY};
+    // this.startPosition = {x: e.clientX, y: e.clientY};
+    this.startPosition = startPosition;
     this.resizeStart.emit();
-    e.stopPropagation();
+    // e.stopPropagation();
   }
 
-  onDragMove(e: PointerEvent, i) {
+  onDragMove(e: DragMoveEvent, i) {
     // console.log(e, i);
+    // this.offset = {
+    //   x: e.clientX - this.startPosition.x,
+    //   y: e.clientY - this.startPosition.y
+    // };
+    const { pointerPosition } = e;
     this.offset = {
-      x: e.clientX - this.startPosition.x,
-      y: e.clientY - this.startPosition.y
+      x: pointerPosition.x - this.startPosition.x,
+      y: pointerPosition.y - this.startPosition.y
     };
     // console.log(i, 'drag move', this.offset);
     this.resize.emit({handler: i, offset: this.offset});
-    e.stopPropagation();
+    // e.stopPropagation();
   }
 
-  onDragEnd(e: PointerEvent, i) {
+  onDragEnd(e: DragEndEvent, i) {
     // console.log(e, i);
     // console.log(i, 'drag end');
     this.startPosition = null;
     this.resizeEnd.emit();
-    e.stopPropagation();
+    // e.stopPropagation();
   }
 
 }

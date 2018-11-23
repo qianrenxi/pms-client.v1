@@ -9,6 +9,8 @@ import { SortableService } from './sortable.service';
 import { DroppableDirective } from './droppable.directive';
 import { DroppableService } from './droppable.service';
 import { DragHandleDirective } from './drag-handle.directive';
+import { ResizableComponent } from './resizable.component';
+import { ResizableDirective } from './resizable.directive';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { DragHandleDirective } from './drag-handle.directive';
     SortableListDirective,
     DroppableDirective,
     DragHandleDirective,
+    ResizableDirective,
+    ResizableComponent,
   ],
   exports: [
     DraggableDirective,
@@ -29,8 +33,10 @@ import { DragHandleDirective } from './drag-handle.directive';
     SortableListDirective,
     DroppableDirective,
     DragHandleDirective,
+    ResizableDirective,
   ],
   entryComponents: [
+    ResizableComponent
   ],
   providers: [
     DragDropService,

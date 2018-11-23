@@ -119,7 +119,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
       if (distanceX + distanceY >= minimumDistance) {
         this._hasStartedDragging = true;
-        this.ngZone.run(() => this._starDrag());
+        this.ngZone.run(() => this._starDrag(event));
         console.log("drag start")
       }
       return;
@@ -153,7 +153,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     this._destroyHelper();
 
     // emit dragEnd event
-    this.dragEnd.emit({type: DragEventType.dragEnd, source: this});
+    this.dragEnd.emit({type: DragEventType.dragEnd, source: this, event: event});
     // do drag end or drop things
 
     console.log("drag end");
@@ -175,8 +175,8 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     this.dragDropService.startDragging(this, event);
   }
 
-  private _starDrag() {
-    this.dragStart.emit({type: DragEventType.dragStart, source: this});
+  private _starDrag(event: MouseEvent | TouchEvent) {
+    this.dragStart.emit({type: DragEventType.dragStart, source: this, event: event, startPosition: this._pickupPositionOnPage});
 
     // if (!this.dropContainer) {
     //  return;
