@@ -176,6 +176,17 @@ export class MainLayoutComponent implements OnInit {
           path: 'dragDrop'
         },
       ]
+    },
+    {
+      name: '栅格布局',
+      icon: 'tool',
+      path: 'grid-layout',
+      children: [
+        {
+          name: '简单示例',
+          path: 'simple'
+        },
+      ]
     }
   ];
 

@@ -12,13 +12,16 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
 import { DragDropModule } from './drag-drop/drag-drop.module';
 import { DraggableDirective } from './drag-drop/draggable.directive';
 import { DraggableHelperDirective } from './drag-drop/draggable-helper.directive';
+import { GridLayoutModule } from './grid-layout/grid-layout.module';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgZorroAntdModule,
+    
     DynamicFormModule,
     DragDropModule,
+    GridLayoutModule
   ],
   declarations: [
     PageHeaderComponent,
@@ -31,6 +34,8 @@ import { DraggableHelperDirective } from './drag-drop/draggable-helper.directive
   exports: [
     DynamicFormModule,
     DragDropModule,
+    GridLayoutModule,
+
     PageHeaderComponent,
     AvatarListComponent,
     ResultComponent,

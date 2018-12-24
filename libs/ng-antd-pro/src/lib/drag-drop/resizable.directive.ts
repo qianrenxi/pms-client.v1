@@ -1,6 +1,7 @@
-import { Directive, HostBinding, ElementRef, OnInit, Renderer2, TemplateRef, ViewContainerRef, Injector, ComponentFactoryResolver, ApplicationRef, ComponentRef, Output } from '@angular/core';
+import { Directive, HostBinding, ElementRef, OnInit, Renderer2, TemplateRef, ViewContainerRef, Injector, ComponentFactoryResolver, ApplicationRef, ComponentRef, Output, EventEmitter, Optional, Host } from '@angular/core';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { ResizableComponent, ResizeRef } from './resizable.component';
+import { DraggableDirective } from './draggable.directive';
 
 export interface Rect {
   x: number;
@@ -18,6 +19,10 @@ export class ResizableDirective implements OnInit {
   rectEl?: Rect;
   resizeHandler: ResizableComponent;
 
+  @Output() resizeStart = new EventEmitter<Rect>();
+  @Output() resize = new EventEmitter<Rect>();
+  @Output() resizeEnd = new EventEmitter<Rect>();
+
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
@@ -25,6 +30,7 @@ export class ResizableDirective implements OnInit {
     private injector: Injector,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
+    @Optional() @Host() private draggable: DraggableDirective
   ) { }
 
   @HostBinding('class.resizable') activated = true;
@@ -60,26 +66,42 @@ export class ResizableDirective implements OnInit {
     this.resizeHandler = comRef.instance;
 
     this.resizeHandler.resizeStart.subscribe(() => {
+      if (this.draggable) {
+        this.draggable.stopDragging();
+      }
+
       this.refreshRect();
+      this.resizeStart.emit(this.rectEl);
     });
 
     this.resizeHandler.resize.subscribe((it: ResizeRef) => {
       // console.log(it);
+      if (this.draggable) {
+        this.draggable.stopDragging();
+      }
+
+      let rect = this.rectEl;
       if (it.handler === 'top' || it.handler.includes('top')) {
         const t = this.rectEl.y + it.offset.y;
         const h = this.rectEl.height - it.offset.y;
         this.renderer.setStyle(this.nativeElement, 'top', `${t}px`);
         this.renderer.setStyle(this.nativeElement, 'height', `${h}px`);
+        
+        rect = {...rect, ...{y: t, height: h}};
       }
 
       if (it.handler === 'right' || it.handler.includes('right')) {
         const w = this.rectEl.width + it.offset.x;
         this.renderer.setStyle(this.nativeElement, 'width', `${w}px`);
+
+        rect = {...rect, ...{width: w}};
       }
 
       if (it.handler === 'bottom' || it.handler.includes('bottom')) {
         const h = this.rectEl.height + it.offset.y;
         this.renderer.setStyle(this.nativeElement, 'height', `${h}px`);
+
+        rect = {...rect, ...{height: h}};
       }
 
       if (it.handler === 'left' || it.handler.includes('left')) {
@@ -87,13 +109,17 @@ export class ResizableDirective implements OnInit {
         const w = this.rectEl.width - it.offset.x;
         this.renderer.setStyle(this.nativeElement, 'left', `${l}px`);
         this.renderer.setStyle(this.nativeElement, 'width', `${w}px`);
+
+        rect = {...rect, ...{x: l, width: w}};
       }
 
+      this.resize.emit(rect);
     });
 
     this.resizeHandler.resizeEnd.subscribe(() => {
       this.refreshRect();
       // console.log(this.rectEl)
+      this.resizeStart.emit(this.rectEl);
     });
 
   }

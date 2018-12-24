@@ -179,3 +179,31 @@
     background: rgba(57,155,252,0.6);
   }
 }
+
+// Grid Layout 
+.ap-grid-layout {
+  position: relative;
+  
+  transition: height 200ms ease;
+
+  .ap-grid-item {
+    box-sizing: border-box;
+
+    transition: all 200ms ease;
+    transition-property: left, top;
+
+    &.css-transeforms {
+      transition-property: transeform;
+    }
+
+    &:not(.grid-item-placeholder) {
+      background: #cccccc;
+      border: 1px solid black;
+    }
+    
+    &.grid-item-placeholder {
+      background: pink;
+      border: 1px solid pink;
+    }
+  }
+}

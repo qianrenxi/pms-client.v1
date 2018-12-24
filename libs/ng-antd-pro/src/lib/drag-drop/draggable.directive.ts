@@ -85,6 +85,16 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     this._removeSubscriptions();
   }
 
+  public stopDragging() {
+    if (!this._isDragging()) {
+      return;
+    }
+
+    this._removeSubscriptions();
+    this.dragDropService.stopDragging(this);
+    this._destroyHelper();
+  }
+
   private _isDragging() {
     return this.dragDropService.isDragging(this);
   }
