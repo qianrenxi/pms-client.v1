@@ -183,17 +183,17 @@
 // Grid Layout 
 .ap-grid-layout {
   position: relative;
-  
+
   transition: height 200ms ease;
 
   .ap-grid-item {
     box-sizing: border-box;
 
     transition: all 200ms ease;
-    transition-property: left, top;
+    // transition-property: left, top;
 
     &.css-transeforms {
-      transition-property: transeform;
+      // transition-property: transeform;
     }
 
     &:not(.grid-item-placeholder) {

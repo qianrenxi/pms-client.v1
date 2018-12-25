@@ -39,7 +39,7 @@
   </nz-card>
 
   <div apGridLayout class="mt-4">
-    <div apGridItem apDraggable apResizable *ngFor="let item of items" [rect]="item.rect">
+    <div apGridItem apDraggable [apResizable]="'right-bottom'" *ngFor="let item of items" [rect]="item.rect">
       <nz-card [nzBordered]="false" class="w-100 h-100 text-center">
         <strong>{{item.label}}</strong>
       </nz-card>

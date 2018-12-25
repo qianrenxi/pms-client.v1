@@ -1,7 +1,8 @@
-import { Directive, HostBinding, ElementRef, OnInit, Renderer2, TemplateRef, ViewContainerRef, Injector, ComponentFactoryResolver, ApplicationRef, ComponentRef, Output, EventEmitter, Optional, Host } from '@angular/core';
+import { Directive, HostBinding, ElementRef, OnInit, Renderer2, TemplateRef, ViewContainerRef, Injector, ComponentFactoryResolver, ApplicationRef, ComponentRef, Output, EventEmitter, Optional, Host, Input } from '@angular/core';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { ResizableComponent, ResizeRef } from './resizable.component';
 import { DraggableDirective } from './draggable.directive';
+import * as _ from 'lodash';
 
 export interface Rect {
   x: number;
@@ -10,10 +11,14 @@ export interface Rect {
   height: number;
 }
 
+type Handler = 'top' | 'top-right' | 'right' | 'right-bottom' | 'bottom' | 'bottom-left' | 'left' | 'left-top';
+
 @Directive({
   selector: '[apResizable]'
 })
 export class ResizableDirective implements OnInit {
+
+  @Input() apResizable: Handler[] | Handler;
 
   nativeElement: HTMLElement;
   rectEl?: Rect;
@@ -64,6 +69,14 @@ export class ResizableDirective implements OnInit {
     // a.attach(o);
     const comRef: ComponentRef<ResizableComponent> = o.attachComponentPortal(a);
     this.resizeHandler = comRef.instance;
+    
+    if (this.apResizable) {
+      if (Array.isArray(this.apResizable)) {
+        this.resizeHandler.handlersConf = _.uniq(this.apResizable); 
+      } else {
+        this.resizeHandler.handlersConf = [this.apResizable];
+      }
+    }
 
     this.resizeHandler.resizeStart.subscribe(() => {
       if (this.draggable) {

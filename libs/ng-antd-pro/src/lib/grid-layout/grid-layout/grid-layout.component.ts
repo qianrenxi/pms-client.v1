@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, HostBinding, Input, ContentChildren, QueryList, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, HostBinding, Input, ContentChildren, QueryList, HostListener, AfterViewInit, AfterContentInit, EventEmitter } from '@angular/core';
 import { GridItemComponent } from '../grid-item/grid-item.component';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/debounce';
@@ -12,7 +12,7 @@ import { GridLayoutService } from '../grid-layout.service';
     GridLayoutService
   ]
 })
-export class GridLayoutComponent implements OnInit {
+export class GridLayoutComponent implements OnInit, AfterContentInit {
 
   // @Input() style: any;
   @Input() width: number;
@@ -38,17 +38,15 @@ export class GridLayoutComponent implements OnInit {
 
   boundingClientRect: ClientRect | DOMRect;
 
+  resizeEvent = new EventEmitter();
+
   @HostBinding("class.ap-grid-layout")
   apGridLayoutStyleClass = true;
 
   @HostListener("window:resize", ['$event'])
   onResize($event) {
     // TODO: 使用 Observable 的 debounce 防抖动
-    const rect = this.boundingClientRect = this._calcContainerRect();
-    this.colWidth = rect.width / this.cols;
-    if (this.rowHeightRate) {
-      this.rowHeight = this.colWidth * this.rowHeightRate;
-    }
+    this.updateRect();
   }
 
   get containerWidth() {
@@ -61,8 +59,24 @@ export class GridLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // setTimeout(() => {
+    //   this.updateRect();
+    // }, 300);
+  }
+
+  ngAfterContentInit() {
+    this.updateRect();
+  }
+
+  updateRect() {
     const rect = this.boundingClientRect = this._calcContainerRect();
+    console.log(rect)
     this.colWidth = rect.width / this.cols;
+    if (this.rowHeightRate) {
+      this.rowHeight = this.colWidth * this.rowHeightRate;
+    }
+
+    this.resizeEvent.emit({});
   }
 
   private _calcContainerRect(): ClientRect | DOMRect {

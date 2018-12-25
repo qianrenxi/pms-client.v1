@@ -26,6 +26,7 @@ interface GridItemRectRange {
 export class GridItemComponent implements OnInit, OnDestroy {
 
   @Input() rect: GridItemRect;
+  @Input() static = false;
 
   get colWidth() {
     return 50;
@@ -47,11 +48,12 @@ export class GridItemComponent implements OnInit, OnDestroy {
   constructor(
     protected elementRef: ElementRef,
     @Optional() @Host() protected gridLayoutComponent: GridLayoutComponent,
-    @Optional() @Host() protected gridLayoutService: GridLayoutService,
+    @Optional() protected gridLayoutService: GridLayoutService,
   ) {
     if (!gridLayoutComponent) {
       throw new Error('GridItem must contains in GridLayout container.');
     }
+    
     if (gridLayoutService) {
       gridLayoutService.registItem(this);
     }
@@ -60,9 +62,17 @@ export class GridItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.patchStyle();
 
-    // if (!!this.resizable) {
-    //   this.resizable.resize.subscribe((e) => this._onResize(e));
+    if (this.gridLayoutComponent) {
+      this.gridLayoutComponent.resizeEvent.subscribe(() => {
+        console.log(this.gridLayoutComponent.colWidth)
+        this.patchStyle();
+      });
+    }
+
+    // if (this.gridLayoutService) {
+    //   this.gridLayoutService.registItem(this);
     // }
+
   }
 
   ngOnDestroy() {
@@ -182,6 +192,7 @@ export class GridItemComponent implements OnInit, OnDestroy {
     this.rect.h = h;
     // console.log(this.rect);
     this.patchStyle();
+    this._compact();
   }
 
   @HostListener("resizeEnd", ["$event"])
@@ -204,10 +215,19 @@ export class GridItemComponent implements OnInit, OnDestroy {
     this.rect.x = x;
     this.rect.y = y;
     this.patchStyle();
+
+    this._compact();
   }
 
   @HostListener("dragEnd", ["$event"])
   onDragEnd($event) {
     // console.log("drag end", $event);
+  }
+
+  private _compact() {
+    const { cols, compactType} = this.gridLayoutComponent;
+    if (this.gridLayoutService) {
+      this.gridLayoutService.compact(this, cols, compactType);
+    }
   }
 }

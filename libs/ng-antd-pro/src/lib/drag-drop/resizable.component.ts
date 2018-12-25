@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostBinding, Output, EventEmitter, Input } from '@angular/core';
 import { DragStartEvent, DragMoveEvent, DragEndEvent } from './drag-events';
 
 interface Position {
@@ -23,7 +23,7 @@ export interface ResizeRef {
   styles: []
 })
 export class ResizableComponent implements OnInit {
-  handlersConf = ['top', 'top-right', 'right', 'right-bottom', 'bottom', 'bottom-left', 'left', 'left-top'];
+  @Input() handlersConf = ['top', 'top-right', 'right', 'right-bottom', 'bottom', 'bottom-left', 'left', 'left-top'];
 
   @HostBinding('class.resize-handler') resizable = true;
 
