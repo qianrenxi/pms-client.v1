@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, HostBinding, Input, ContentChildren, QueryList, HostListener, AfterViewInit, AfterContentInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, HostBinding, Input, ContentChildren, QueryList, HostListener, AfterViewInit, AfterContentInit, EventEmitter, AfterViewChecked } from '@angular/core';
 import { GridItemComponent } from '../grid-item/grid-item.component';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/debounce';
@@ -12,8 +12,7 @@ import { GridLayoutService } from '../grid-layout.service';
     GridLayoutService
   ]
 })
-export class GridLayoutComponent implements OnInit, AfterContentInit {
-
+export class GridLayoutComponent implements OnInit, AfterViewInit, AfterViewChecked {
   // @Input() style: any;
   @Input() width: number;
   @Input() autoSize = true;
@@ -64,20 +63,33 @@ export class GridLayoutComponent implements OnInit, AfterContentInit {
     // }, 300);
   }
 
-  ngAfterContentInit() {
+  ngAfterViewInit() {
+    this.updateRect();
+  }
+
+  ngAfterViewChecked() {
     this.updateRect();
   }
 
   updateRect() {
+    const oldRect = this.boundingClientRect;
     const rect = this.boundingClientRect = this._calcContainerRect();
-    console.log(rect)
-    this.colWidth = rect.width / this.cols;
+    // console.log(oldRect, rect)
+    this.colWidth = (rect.width - this.gutter * (this.cols - 1)) / this.cols;
     if (this.rowHeightRate) {
       this.rowHeight = this.colWidth * this.rowHeightRate;
     }
 
-    this.resizeEvent.emit({});
+    if (oldRect.width !== rect.width) {
+      this.resizeEvent.emit({});
+    }
   }
+
+  setHeight(containerHeight: number): any {
+    const element = this.elementRef.nativeElement as HTMLElement;
+    element.style.height = `${containerHeight}px`;
+  }
+
 
   private _calcContainerRect(): ClientRect | DOMRect {
     const element = this.elementRef.nativeElement as HTMLElement;

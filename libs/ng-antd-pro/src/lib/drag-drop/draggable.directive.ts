@@ -37,17 +37,18 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   private _pointerMoveSubscription = Subscription.EMPTY;
   private _pointerUpSubscription = Subscription.EMPTY;
 
-  private _scrollPosition: {top: number; left: number};
+  private _scrollPosition: { top: number; left: number };
   private _pickupPositionOnPage: Point; // 用户选择元素时的坐标，起始坐标
+  private _pickupOffsetOnHelper: Point;
 
   @HostBinding("class.ap-draggable") draggableStyleClass = true;
   @HostBinding("class.ap-draggable-dragging") get draggingStyleClass() {
     return this._hasStartedDragging && this._isDragging();
   }
 
-  @ContentChildren(DragHandleDirective, {descendants: true}) _handles: QueryList<DragHandleDirective>;
+  @ContentChildren(DragHandleDirective, { descendants: true }) _handles: QueryList<DragHandleDirective>;
 
-  @ContentChild(DraggableHelperDirective) draggableHelper: DraggableHelperDirective; 
+  @ContentChild(DraggableHelperDirective) draggableHelper: DraggableHelperDirective;
 
   @Input() dragData: any;
 
@@ -80,7 +81,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
 
-    this.subscriptions.forEach(s =>  s.unsubscribe());
+    this.subscriptions.forEach(s => s.unsubscribe());
     this.dragDropService.removeDraggable(this);
     this._removeSubscriptions();
   }
@@ -130,7 +131,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
       if (distanceX + distanceY >= minimumDistance) {
         this._hasStartedDragging = true;
         this.ngZone.run(() => this._starDrag(event));
-        console.log("drag start")
+        // console.log("drag start")
       }
       return;
     }
@@ -140,7 +141,10 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     // update move info
     this._updateRender(pointerPosition);
     // emit dragMove event
-    this.dragMove.emit({type: DragEventType.dragMove, source: this, pointerPosition: pointerPosition, event: event});
+    this.dragMove.emit({ type: DragEventType.dragMove, source: this, pointerPosition: {
+      x: pointerPosition.x - (this._pickupOffsetOnHelper.x || 0),
+      y: pointerPosition.y - (this._pickupOffsetOnHelper.y || 0)
+    }, event: event });
 
     // console.log("Dragging", pointerPosition);
     // console.log("dragging");
@@ -163,10 +167,10 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     this._destroyHelper();
 
     // emit dragEnd event
-    this.dragEnd.emit({type: DragEventType.dragEnd, source: this, event: event});
+    this.dragEnd.emit({ type: DragEventType.dragEnd, source: this, event: event });
     // do drag end or drop things
 
-    console.log("drag end");
+    // console.log("drag end");
   }
 
   private _initDrag(referenceElement: HTMLElement, event: MouseEvent | TouchEvent) {
@@ -179,14 +183,14 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     this._hasStartedDragging = this._hasMoved = false;
     this._pointerMoveSubscription = this.dragDropService.pointerMove.subscribe(e => this._pointerMove(e));
     this._pointerUpSubscription = this.dragDropService.pointerUp.subscribe(e => this._pointerUp(e));
-    this._scrollPosition = {top: 0, left: 0}; // TODO: get real scroll postition value
+    this._scrollPosition = { top: 0, left: 0 }; // TODO: get real scroll postition value
 
     this._pickupPositionOnPage = this._getPointerPositionOnPage(event);
     this.dragDropService.startDragging(this, event);
   }
 
   private _starDrag(event: MouseEvent | TouchEvent) {
-    this.dragStart.emit({type: DragEventType.dragStart, source: this, event: event, startPosition: this._pickupPositionOnPage});
+    this.dragStart.emit({ type: DragEventType.dragStart, source: this, event: event, startPosition: this._pickupPositionOnPage });
 
     // if (!this.dropContainer) {
     //  return;
@@ -201,7 +205,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   }
 
   // _updateActiveDropContainer
-  private _updateRender({x, y}: Point) {
+  private _updateRender({ x, y }: Point) {
     setTransform(this._helperElement, x, y);
   }
 
@@ -235,28 +239,38 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
 
   private _createHelperElement(): HTMLElement {
     let helper: HTMLElement;
-
+    let offsetHelper: Point;
     if (this.draggableHelper) {
       const viewRef = this.viewContainerRef.createEmbeddedView(this.draggableHelper.templateRef);
       this._helperRef = viewRef;
       helper = viewRef.rootNodes[0];
       setTransform(helper, this._pickupPositionOnPage.x, this._pickupPositionOnPage.y);
+
+      const elementRect = helper.getBoundingClientRect();
+      offsetHelper = this._pickupOffsetOnHelper = {
+        x: 0, // elementRect.left - this._pickupPositionOnPage.x,
+        y: 0, // elementRect.top - this._pickupPositionOnPage.y
+      };
     } else {
       const element = this._hostElement;
       const elementRect = element.getBoundingClientRect();
-
       helper = element.cloneNode(true) as HTMLElement;
       helper.style.width = `${elementRect.width}px`;
       helper.style.height = `${elementRect.height}px`;
       setTransform(helper, elementRect.left, elementRect.top);
+
+      offsetHelper = this._pickupOffsetOnHelper = {
+        x: this._pickupPositionOnPage.x - elementRect.left,
+        y: this._pickupPositionOnPage.y - elementRect.top
+      };
     }
 
     helper.className = helper.className + ' ap-draggable-helper'
 
     extendStyles(helper.style, {
       position: 'fixed',
-      top: '0',
-      left: '0',
+      left: `${- offsetHelper.x}px`,
+      top: `${- offsetHelper.y}px`,
       zIndex: '1000'
     });
 
@@ -273,7 +287,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     if (this._helperElement) {
       this._removeElement(this._helperElement);
     }
-    
+
     if (this._helperRef) {
       this._helperRef.destroy()
     }
@@ -281,7 +295,7 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     this._helperElement = this._helperRef = null;
   }
 
-  
+
   private _removeSubscriptions() {
     this._pointerMoveSubscription.unsubscribe();
     this._pointerUpSubscription.unsubscribe();

@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional, Host, ElementRef, HostBinding, Input, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, Optional, Host, ElementRef, HostBinding, Input, HostListener, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { GridLayoutComponent } from '../grid-layout/grid-layout.component';
 import { Position, setTransform, setTopLeft, perc } from '../utils';
 import { GridLayoutService } from '../grid-layout.service';
@@ -23,10 +23,12 @@ interface GridItemRectRange {
   templateUrl: './grid-item.component.html',
   styleUrls: ['./grid-item.component.scss']
 })
-export class GridItemComponent implements OnInit, OnDestroy {
+export class GridItemComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() rect: GridItemRect;
   @Input() static = false;
+
+  @Output() rectChange = new EventEmitter<any>();
 
   get colWidth() {
     return 50;
@@ -60,11 +62,14 @@ export class GridItemComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    if (!this.rect) {
+      this.rect = {x: 0, y: 0, w: 2, h: 2};
+    }
     this.patchStyle();
 
     if (this.gridLayoutComponent) {
       this.gridLayoutComponent.resizeEvent.subscribe(() => {
-        console.log(this.gridLayoutComponent.colWidth)
+        // console.log(this.gridLayoutComponent.colWidth)
         this.patchStyle();
       });
     }
@@ -75,13 +80,19 @@ export class GridItemComponent implements OnInit, OnDestroy {
 
   }
 
+  ngAfterViewInit() {
+    // if (this.gridLayoutComponent) {
+    //   this.gridLayoutComponent.updateRect();
+    // }
+  }
+
   ngOnDestroy() {
     this.gridLayoutService.unregistItem(this);
   }
 
-  getSiblings(): GridItemComponent[] {
-    return this.gridLayoutService.getSiblings(this);
-  }
+  // getSiblings(): GridItemComponent[] {
+  //   return this.gridLayoutService.getSiblings(this);
+  // }
 
   patchStyle() {
     const pos = this._calcPosition(this.rect);
@@ -89,6 +100,15 @@ export class GridItemComponent implements OnInit, OnDestroy {
     const element = this.elementRef.nativeElement as HTMLElement;
     // const elementStyle = element.style;
     Object.assign(element.style, style);
+
+
+    // 设置容器高度
+    const {rowHeight, gutter} = this.gridLayoutComponent;
+    const rows = this.gridLayoutService.allBottom();
+    const containerHeight = rowHeight * rows + (rows - 1) * gutter;
+    this.gridLayoutComponent.setHeight(containerHeight);
+
+    this.rectChange.emit(this.rect);
   }
 
   private _createStyle(pos: Position): { [key: string]: string } {
@@ -124,8 +144,8 @@ export class GridItemComponent implements OnInit, OnDestroy {
     const { x, y, w, h } = gridRect;
 
     const position: Position = {
-      left: Math.round((colWidth + gutter) * x + gutter),
-      top: Math.round((rowHeight + gutter) * y + gutter),
+      left: Math.round((colWidth + gutter) * x), // + gutter),
+      top: Math.round((rowHeight + gutter) * y), // + gutter),
       width: w === Infinity ? w : Math.round(colWidth * w + Math.max(0, w - 1) * gutter),
       height: h === Infinity ? h : Math.round(rowHeight * h + Math.max(0, h - 1) * gutter)
     };
@@ -225,7 +245,7 @@ export class GridItemComponent implements OnInit, OnDestroy {
   }
 
   private _compact() {
-    const { cols, compactType} = this.gridLayoutComponent;
+    const { cols, rowHeight, gutter, compactType} = this.gridLayoutComponent;
     if (this.gridLayoutService) {
       this.gridLayoutService.compact(this, cols, compactType);
     }

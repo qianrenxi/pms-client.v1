@@ -80,11 +80,15 @@ export class GridLayoutService {
         currentItem.patchStyle();
     }
 
+    allBottom() {
+        return this._bottom(this.items);
+    }
+
     private _bottom(items: GridItemComponent[]) {
         const bottoms = items.map(it => {
             const { rect } = it;
             // console.log('rect', rect, it);
-            return rect.y + rect.h;
+            return rect ? rect.y + rect.h : 0;
         });
         // console.log("bottoms", bottoms);
         return Math.max(...bottoms, 0);

@@ -10,8 +10,8 @@ export interface Position {
 /**
  * Helper to convert a number to a percentage string.
  *
- * @param  {Number} num Any number
- * @return {String}     That number as a percentage.
+ * @ param  {Number} num Any number
+ * @ return {String}     That number as a percentage.
  */
 export function perc(num: number): string {
     return num * 100 + "%";

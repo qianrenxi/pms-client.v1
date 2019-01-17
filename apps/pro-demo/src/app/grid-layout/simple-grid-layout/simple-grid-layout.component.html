@@ -39,9 +39,16 @@
   </nz-card>
 
   <div apGridLayout class="mt-4">
+    <div class="row" style="margin: 0 -4px; position: absolute; top: 0; bottom: 0; left: 0; right: 0;">
+      <div *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12]" class="col" style="padding: 0 4px; height: 100%;">
+        <div style="height: 100%; background: red; opacity: 0.3; text-align: center;">{{item}}</div>
+      </div>
+    </div>
     <div apGridItem apDraggable [apResizable]="'right-bottom'" *ngFor="let item of items" [rect]="item.rect">
       <nz-card [nzBordered]="false" class="w-100 h-100 text-center">
         <strong>{{item.label}}</strong>
+        <br>
+        [x: {{item.rect.x}}, y: {{item.rect.y}}, w: {{item.rect.w}}, h: {{item.rect.h}}]
       </nz-card>
     </div>
   </div>
