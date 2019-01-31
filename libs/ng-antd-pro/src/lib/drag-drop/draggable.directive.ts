@@ -257,13 +257,16 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
       helper = element.cloneNode(true) as HTMLElement;
       helper.style.width = `${elementRect.width}px`;
       helper.style.height = `${elementRect.height}px`;
-      setTransform(helper, elementRect.left, elementRect.top);
+      // setTransform(helper, elementRect.left, elementRect.top);
+      setTransform(helper, this._pickupPositionOnPage.x, this._pickupPositionOnPage.y);
 
       offsetHelper = this._pickupOffsetOnHelper = {
         x: this._pickupPositionOnPage.x - elementRect.left,
         y: this._pickupPositionOnPage.y - elementRect.top
       };
     }
+
+    console.log("init drag drop helper offset:", offsetHelper);
 
     helper.className = helper.className + ' ap-draggable-helper'
 
