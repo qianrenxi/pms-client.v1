@@ -64,17 +64,21 @@ export class GridLayoutComponent implements OnInit, AfterViewInit, AfterViewChec
   }
 
   ngAfterViewInit() {
+    console.log('grid layout view init.');
     this.updateRect();
+    // first init
+    this.resizeEvent.emit({});
   }
 
   ngAfterViewChecked() {
+    console.log('grid layout view checked.');
     this.updateRect();
   }
 
   updateRect() {
     const oldRect = this.boundingClientRect;
     const rect = this.boundingClientRect = this._calcContainerRect();
-    // console.log(oldRect, rect)
+    console.log(oldRect, rect)
     this.colWidth = (rect.width - this.gutter * (this.cols - 1)) / this.cols;
     if (this.rowHeightRate) {
       this.rowHeight = this.colWidth * this.rowHeightRate;

@@ -24,7 +24,8 @@
     "dep-graph": "./node_modules/.bin/nx dep-graph",
     "help": "./node_modules/.bin/nx help",
     "pro:dev": "ng run pro-demo:mock-serve --port 4900",
-    "pms:dev": "ng serve pms-web --port 4901"
+    "pms:dev": "ng serve pms-web --port 4901",
+    "api-hub:dev": "ng serve api-hub --port 4902"
   },
   "private": true,
   "dependencies": {
