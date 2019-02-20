@@ -1,8 +1,9 @@
-import { Directive, HostBinding, ElementRef, OnInit, Renderer2, TemplateRef, ViewContainerRef, Injector, ComponentFactoryResolver, ApplicationRef, ComponentRef, Output, EventEmitter, Optional, Host, Input } from '@angular/core';
+import { Directive, HostBinding, ElementRef, OnInit, Renderer2, TemplateRef, ViewContainerRef, Injector, ComponentFactoryResolver, ApplicationRef, ComponentRef, Output, EventEmitter, Optional, Host, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { ResizableComponent, ResizeRef } from './resizable.component';
 import { DraggableDirective } from './draggable.directive';
 import * as _ from 'lodash';
+import { isBoolean, isString } from 'util';
 
 export interface Rect {
   x: number;
@@ -16,13 +17,28 @@ type Handler = 'top' | 'top-right' | 'right' | 'right-bottom' | 'bottom' | 'bott
 @Directive({
   selector: '[apResizable]'
 })
-export class ResizableDirective implements OnInit {
+export class ResizableDirective implements OnInit, OnChanges {
 
-  @Input() apResizable: Handler[] | Handler;
+  _resizable: boolean;
+  @Input("apResizable") set resizable(value: any) {
+    if (isBoolean(value)) {
+      this._resizable = value;
+    } else if (isString(value)) {
+      this._resizable = value as string !== "false";
+    } else {
+      this._resizable = true;
+    }
+  }
+  get resizable(): any {
+    return this._resizable;
+  }
+  @Input() resizeHandles: Handler[] | Handler;
 
   nativeElement: HTMLElement;
   rectEl?: Rect;
+  resizeHandlerCompRef: ComponentRef<ResizableComponent>;
   resizeHandler: ResizableComponent;
+
 
   @Output() resizeStart = new EventEmitter<Rect>();
   @Output() resize = new EventEmitter<Rect>();
@@ -50,7 +66,22 @@ export class ResizableDirective implements OnInit {
     };
 
     // this.createHandler();
-    this.createHandlerComp();
+    if (this.resizable) {
+      this._createHandlerComp();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const resizableChange = changes['resizable'];
+    // console.log("resizableChange", draggableChange.previousValue, draggableChange.currentValue);
+    if (!resizableChange.isFirstChange()) {
+      // console.log("resizableChange", draggableChange.previousValue, draggableChange.currentValue);
+      if (this.resizable) {
+        this._enableResize();
+      } else {
+        this._disableResize();
+      }
+    }
   }
 
   refreshRect() {
@@ -62,19 +93,32 @@ export class ResizableDirective implements OnInit {
     };
   }
 
-  createHandlerComp() {
+  private _enableResize() {
+    // this._disableResize();
+    this._createHandlerComp();
+  }
+
+  private _disableResize() {
+    this.resizeHandlerCompRef.destroy();
+    this.resizeHandler = null;
+
+    // TODO: 清理 subscription
+  }
+
+  private _createHandlerComp() {
     const a = new ComponentPortal(ResizableComponent, this.viewContainerRef, this.injector);
     const o = new DomPortalOutlet(this.elementRef.nativeElement, this.componentFactoryResolver, this.appRef, this.injector);
 
     // a.attach(o);
     const comRef: ComponentRef<ResizableComponent> = o.attachComponentPortal(a);
     this.resizeHandler = comRef.instance;
+    this.resizeHandlerCompRef = comRef;
     
-    if (this.apResizable) {
-      if (Array.isArray(this.apResizable)) {
-        this.resizeHandler.handlersConf = _.uniq(this.apResizable); 
+    if (this.resizeHandles) {
+      if (Array.isArray(this.resizeHandles)) {
+        this.resizeHandler.handlersConf = _.uniq(this.resizeHandles); 
       } else {
-        this.resizeHandler.handlersConf = [this.apResizable];
+        this.resizeHandler.handlersConf = [this.resizeHandles];
       }
     }
 
@@ -132,7 +176,7 @@ export class ResizableDirective implements OnInit {
     this.resizeHandler.resizeEnd.subscribe(() => {
       this.refreshRect();
       // console.log(this.rectEl)
-      this.resizeStart.emit(this.rectEl);
+      this.resizeEnd.emit(this.rectEl);
     });
 
   }

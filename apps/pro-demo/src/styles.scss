@@ -39,6 +39,7 @@
   border: 1px solid #aaa;
   box-sizing: border-box;
   border-color: rgba(57,155,252,0.6);
+  z-index: -1;
 
   [class^=resize] {
     display: block;

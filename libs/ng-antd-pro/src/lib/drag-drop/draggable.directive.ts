@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener, Optional, ViewContainerRef, EmbeddedViewRef, ContentChildren, QueryList } from '@angular/core';
+import { Directive, ElementRef, NgZone, OnInit, HostBinding, AfterViewInit, OnDestroy, Output, EventEmitter, Input, ContentChild, Inject, HostListener, Optional, ViewContainerRef, EmbeddedViewRef, ContentChildren, QueryList, OnChanges, SimpleChanges } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { fromEvent, Subscription } from 'rxjs';
 import { DragDropService } from './drag-drop.service';
@@ -9,6 +9,7 @@ import { extendStyles } from './drag-styling';
 import { DOCUMENT } from '@angular/common';
 import { DragHandleDirective } from './drag-handle.directive';
 import { AP_DRAG_PARENT } from './drag-parent';
+import { isBoolean, isString } from 'util';
 
 interface Point {
   x: number;
@@ -23,7 +24,7 @@ interface Point {
     useExisting: DraggableDirective
   }]
 })
-export class DraggableDirective implements AfterViewInit, OnDestroy {
+export class DraggableDirective implements AfterViewInit, OnChanges, OnDestroy {
 
   protected _document: Document;
   protected _hostElement: HTMLElement;
@@ -41,20 +42,34 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
   private _pickupPositionOnPage: Point; // 用户选择元素时的坐标，起始坐标
   private _pickupOffsetOnHelper: Point;
 
-  @HostBinding("class.ap-draggable") draggableStyleClass = true;
-  @HostBinding("class.ap-draggable-dragging") get draggingStyleClass() {
-    return this._hasStartedDragging && this._isDragging();
+  private _draggable = true;
+  @Input("apDraggable") set draggable(value: any) {
+    if (isBoolean(value)) {
+      this._draggable = value;
+    } else if (isString(value)) {
+      this._draggable = value as string !== "false";
+    } else {
+      this._draggable = true;
+    }
   }
-
-  @ContentChildren(DragHandleDirective, { descendants: true }) _handles: QueryList<DragHandleDirective>;
-
-  @ContentChild(DraggableHelperDirective) draggableHelper: DraggableHelperDirective;
-
+  get draggable(): any {
+    return this._draggable;
+  }
   @Input() dragData: any;
 
   @Output() dragStart: EventEmitter<DragStartEvent> = new EventEmitter<DragStartEvent>();
   @Output() dragMove: EventEmitter<DragMoveEvent> = new EventEmitter<DragMoveEvent>();
   @Output() dragEnd: EventEmitter<DragEndEvent> = new EventEmitter<DragEndEvent>();
+
+  @ContentChildren(DragHandleDirective, { descendants: true }) _handles: QueryList<DragHandleDirective>;
+  @ContentChild(DraggableHelperDirective) draggableHelper: DraggableHelperDirective;
+
+  @HostBinding("class.ap-draggable") get draggableStyleClass() {
+    return this.draggable;
+  }
+  @HostBinding("class.ap-draggable-dragging") get draggingStyleClass() {
+    return this._hasStartedDragging && this._isDragging();
+  }
 
   constructor(
     public element: ElementRef<HTMLElement>,
@@ -64,23 +79,32 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     protected dragDropService: DragDropService<DraggableDirective>
   ) {
     this._document = _document;
-    this.dragDropService.registerDraggable(this);
+    // this.dragDropService.registerDraggable(this);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const draggableChange = changes['draggable'];
+    // console.log("draggableChange", draggableChange.previousValue, draggableChange.currentValue);
+    if (!draggableChange.isFirstChange()) {
+      // console.log("draggableChange", draggableChange.previousValue, draggableChange.currentValue);
+      if (this.draggable) {
+        this._enableDrag();
+      } else {
+        this._disableDrag();
+      }
+    }
   }
 
   ngAfterViewInit() {
-    this.ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
-      this.subscriptions.forEach(s => s.unsubscribe());
-
-      const hostElement = this._hostElement = this._getHostElement();
-      this.subscriptions.push(
-        fromEvent(hostElement, 'mousedown').subscribe((e: MouseEvent) => this._pointerDown(e)),
-        fromEvent(hostElement, 'touchstart').subscribe((e: TouchEvent) => this._pointerDown(e))
-      );
-    });
+    // console.log("ngAfterViewInit: apDraggable enable value", this.draggable, typeof this.draggable);
+    if (this.draggable) { // disable draggable
+      this.ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
+        this._enableDrag();
+      });
+    } 
   }
 
   ngOnDestroy() {
-
     this.subscriptions.forEach(s => s.unsubscribe());
     this.dragDropService.removeDraggable(this);
     this._removeSubscriptions();
@@ -94,6 +118,24 @@ export class DraggableDirective implements AfterViewInit, OnDestroy {
     this._removeSubscriptions();
     this.dragDropService.stopDragging(this);
     this._destroyHelper();
+  }
+
+  private _enableDrag() {
+    this.dragDropService.registerDraggable(this);
+
+    this.subscriptions.forEach(s => s.unsubscribe());
+
+    const hostElement = this._hostElement = this._getHostElement();
+    this.subscriptions.push(
+      fromEvent(hostElement, 'mousedown').subscribe((e: MouseEvent) => this._pointerDown(e)),
+      fromEvent(hostElement, 'touchstart').subscribe((e: TouchEvent) => this._pointerDown(e))
+    );
+  }
+
+  private _disableDrag() {
+    this.stopDragging();
+    this.subscriptions.forEach(s => s.unsubscribe());
+    this.dragDropService.removeDraggable(this);
   }
 
   private _isDragging() {
