@@ -1,4 +1,4 @@
-import { Directive, AfterContentInit, ElementRef, ContentChildren, QueryList, Output, EventEmitter } from '@angular/core';
+import { Directive, AfterContentInit, ElementRef, ContentChildren, QueryList, Output, EventEmitter, HostBinding } from '@angular/core';
 import { DropContainer } from './drop-container';
 import { SortableDirective } from './sortable.directive';
 import { toArray } from 'rxjs/operators';
@@ -20,6 +20,8 @@ export class SortableListDirective implements DropContainer, AfterContentInit {
 
   @Output() sort = new EventEmitter<SortEvent>();
   @Output() append = new EventEmitter<any>();
+
+  @HostBinding('class.sortable-list') sortableListStyleClass = true;
 
   constructor(
     public element: ElementRef<HTMLElement>
