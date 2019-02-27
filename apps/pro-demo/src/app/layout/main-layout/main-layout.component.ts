@@ -175,6 +175,10 @@ export class MainLayoutComponent implements OnInit {
           name: '拖放',
           path: 'dragDrop'
         },
+        {
+          name: '分割器',
+          path: 'splitter'
+        },
       ]
     },
     {

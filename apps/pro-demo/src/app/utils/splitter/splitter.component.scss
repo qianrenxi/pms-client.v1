@@ -1,0 +1,21 @@
+
+
+
+.splitter-container {
+  width: 800px;
+  height: 320px;
+  border: 1px solid #cccccc;
+  background: #ffffff;
+  margin: 0 auto;
+
+  > div {
+    height: 100%;
+  }
+}
+
+.ap-splitter {
+  width: 10px;
+  height: 100%;
+  background: #cccccc;
+  cursor: col-resize;
+}

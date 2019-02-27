@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { UtilsRoutingModule } from './utils-routing.module';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
+import { SplitterComponent } from './splitter/splitter.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { DragDropComponent } from './drag-drop/drag-drop.component';
   ],
   declarations: [
     DragDropComponent,
+    SplitterComponent,
   ]
 })
 export class UtilsModule { }

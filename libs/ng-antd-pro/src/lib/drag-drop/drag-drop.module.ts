@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DragDropModule as CdkDragDropModule } from '@angular/cdk/drag-drop';
 import { DragDropService } from './drag-drop.service';
 import { DraggableDirective } from './draggable.directive';
 import { DraggableHelperDirective } from './draggable-helper.directive';
@@ -11,10 +12,12 @@ import { DroppableService } from './droppable.service';
 import { DragHandleDirective } from './drag-handle.directive';
 import { ResizableComponent } from './resizable.component';
 import { ResizableDirective } from './resizable.directive';
+import { SplitterDirective } from './splitter.directive';
 
 @NgModule({
   imports: [
     CommonModule,
+    CdkDragDropModule,
   ],
   declarations: [
     DraggableDirective,
@@ -25,6 +28,7 @@ import { ResizableDirective } from './resizable.directive';
     DragHandleDirective,
     ResizableDirective,
     ResizableComponent,
+    SplitterDirective,
   ],
   exports: [
     DraggableDirective,
@@ -34,6 +38,7 @@ import { ResizableDirective } from './resizable.directive';
     DroppableDirective,
     DragHandleDirective,
     ResizableDirective,
+    SplitterDirective,
   ],
   entryComponents: [
     ResizableComponent
