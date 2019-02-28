@@ -1,13 +1,18 @@
-import { Directive, ElementRef, Inject, Input, ChangeDetectorRef } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, ChangeDetectorRef, OnInit } from '@angular/core';
 import { DragDrop, DragRef, CDK_DRAG_CONFIG, DragRefConfig, CdkDrag } from '@angular/cdk/drag-drop';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+
+
 
 @Directive({
   selector: '[apSplitter]'
 })
-export class SplitterDirective<T = any> {
+export class SplitterDirective<T = any> implements OnInit {
 
   _dragRef: DragRef;
+
+  @Input('apSplitterPrev') prevElement: HTMLElement; 
+  @Input('apSplitterNext') nextElement: HTMLElement; 
 
   /** Locks the position of the dragged element along the specified axis. */
   @Input('apSplitterLockAxis') lockAxis: 'x' | 'y' = 'x';
@@ -30,6 +35,11 @@ export class SplitterDirective<T = any> {
   }
   private _disabled = false;
 
+  private _pickupPositionOnPage: Point;
+
+  private _prevElementRect: ClientRect | DOMRect;
+  private _nextElementRect: ClientRect | DOMRect;
+
   constructor(
     public element: ElementRef<HTMLElement>,
     @Inject(CDK_DRAG_CONFIG) config: DragRefConfig,
@@ -43,6 +53,9 @@ export class SplitterDirective<T = any> {
     this._handleEvents(this._dragRef);
   }
 
+  ngOnInit() {
+    // console.log("Splitter targets elements:", this.prevElement, this.nextElement);
+  }
 
   /** Gets the boundary element, based on the `boundaryElementSelector`. */
   private _getBoundaryElement() {
@@ -54,15 +67,15 @@ export class SplitterDirective<T = any> {
   private _syncInputs(ref: DragRef<CdkDrag<T>>) {
     ref.beforeStarted.subscribe(() => {
       if (!ref.isDragging()) {
-        const placeholder = null;
-        const preview = null;
+        // const placeholder = null;
+        // const preview = null;
 
         ref.disabled = this.disabled;
         ref.lockAxis = this.lockAxis;
         ref
-          .withBoundaryElement(this._getBoundaryElement())
-          .withPlaceholderTemplate(placeholder)
-          .withPreviewTemplate(preview);
+          .withBoundaryElement(this._getBoundaryElement());
+          // .withPlaceholderTemplate(placeholder)
+          // .withPreviewTemplate(preview);
 
       }
     });
@@ -72,7 +85,15 @@ export class SplitterDirective<T = any> {
   private _handleEvents(ref: DragRef<CdkDrag<T>>) {
     ref.started.subscribe(() => {
       // this.started.emit({source: this});
-      console.log('Splitter drag start.')
+      // console.log('Splitter drag start.');
+
+      this._pickupPositionOnPage = ref['_pickupPositionOnPage'];
+      if (this.prevElement) {
+        this._prevElementRect = this.prevElement.getBoundingClientRect();
+      }
+      if (this.nextElement) {
+        this._nextElementRect = this.nextElement.getBoundingClientRect();
+      }
 
       // Since all of these events run outside of change detection,
       // we need to ensure that everything is marked correctly.
@@ -83,8 +104,34 @@ export class SplitterDirective<T = any> {
     });
 
     ref.moved.subscribe((args) => {
-      const {pointerPosition, delta}: {pointerPosition: {x: number, y: number}, delta: {x: -1 | 0 | 1, y: -1 | 0 | 1}} = args;
-      console.log('Splitter drag moved.', pointerPosition, delta)
+      const {pointerPosition}: {pointerPosition: {x: number, y: number}} = args;
+      // console.log('Splitter drag moved.', pointerPosition, delta);
+      
+      if (this._pickupPositionOnPage) {
+        // const transform: Point = {x: 0, y: 0};
+        // transform.x = pointerPosition.x - this._pickupPositionOnPage.x;
+        // transform.y = pointerPosition.y - this._pickupPositionOnPage.y;
+
+        if (this.lockAxis === 'x') {
+          const transformX = pointerPosition.x - this._pickupPositionOnPage.x;
+          if (this.prevElement && this._prevElementRect) {
+            this.prevElement.style.width = `${this._prevElementRect.width + transformX}px`;
+          }
+          if (this.nextElement && this._nextElementRect) {
+            this.nextElement.style.width = `${this._nextElementRect.width - transformX}px`;
+          }
+        } else if(this.lockAxis === 'y') {
+          const transformY = pointerPosition.y - this._pickupPositionOnPage.y;
+          if (this.prevElement && this._prevElementRect) {
+            this.prevElement.style.height = `${this._prevElementRect.height + transformY}px`;
+          }
+          if (this.nextElement && this._nextElementRect) {
+            this.nextElement.style.height = `${this._nextElementRect.height - transformY}px`;
+          }
+        }
+
+        this._dragRef.reset();
+      }
     });
 
     // ref.released.subscribe(() => {
@@ -93,7 +140,8 @@ export class SplitterDirective<T = any> {
 
     ref.ended.subscribe(() => {
       // this.ended.emit({source: this});
-      console.log('Splitter drag end.')
+      console.log('Splitter drag end.');
+      this._dragRef.reset();
 
       // Since all of these events run outside of change detection,
       // we need to ensure that everything is marked correctly.
@@ -128,6 +176,12 @@ export class SplitterDirective<T = any> {
     //   });
     // });
   }
+}
+
+/** Point on the page or within an element. */
+interface Point {
+  x: number;
+  y: number;
 }
 
 /** Gets the closest ancestor of an element that matches a selector. */
