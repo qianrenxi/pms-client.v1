@@ -131,9 +131,9 @@
         }
       }
     },
-    "api-gub": {
-      "root": "apps/api-gub/",
-      "sourceRoot": "apps/api-gub/src",
+    "api-hub": {
+      "root": "apps/api-hub/",
+      "sourceRoot": "apps/api-hub/src",
       "projectType": "application",
       "prefix": "ah",
       "schematics": {
@@ -145,14 +145,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/api-gub",
-            "index": "apps/api-gub/src/index.html",
-            "main": "apps/api-gub/src/main.ts",
-            "polyfills": "apps/api-gub/src/polyfills.ts",
-            "tsConfig": "apps/api-gub/tsconfig.app.json",
+            "outputPath": "dist/apps/api-hub",
+            "index": "apps/api-hub/src/index.html",
+            "main": "apps/api-hub/src/main.ts",
+            "polyfills": "apps/api-hub/src/polyfills.ts",
+            "tsConfig": "apps/api-hub/tsconfig.app.json",
             "assets": [
-              "apps/api-gub/src/favicon.ico",
-              "apps/api-gub/src/assets",
+              "apps/api-hub/src/favicon.ico",
+              "apps/api-hub/src/assets",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
@@ -172,8 +172,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/api-gub/src/environments/environment.ts",
-                  "with": "apps/api-gub/src/environments/environment.prod.ts"
+                  "replace": "apps/api-hub/src/environments/environment.ts",
+                  "with": "apps/api-hub/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -198,26 +198,26 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "api-gub:build"
+            "browserTarget": "api-hub:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "api-gub:build:production"
+              "browserTarget": "api-hub:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "api-gub:build"
+            "browserTarget": "api-hub:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/api-gub/tsconfig.app.json",
-              "apps/api-gub/tsconfig.spec.json"
+              "apps/api-hub/tsconfig.app.json",
+              "apps/api-hub/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }
@@ -225,35 +225,35 @@
         "test": {
           "builder": "@nrwl/builders:jest",
           "options": {
-            "jestConfig": "apps/api-gub/jest.config.js",
-            "tsConfig": "apps/api-gub/tsconfig.spec.json",
-            "setupFile": "apps/api-gub/src/test-setup.ts"
+            "jestConfig": "apps/api-hub/jest.config.js",
+            "tsConfig": "apps/api-hub/tsconfig.spec.json",
+            "setupFile": "apps/api-hub/src/test-setup.ts"
           }
         }
       }
     },
-    "api-gub-e2e": {
-      "root": "apps/api-gub-e2e",
+    "api-hub-e2e": {
+      "root": "apps/api-hub-e2e",
       "projectType": "application",
       "prefix": "",
       "architect": {
         "e2e": {
           "builder": "@nrwl/builders:cypress",
           "options": {
-            "cypressConfig": "apps/api-gub-e2e/cypress.json",
-            "tsConfig": "apps/api-gub-e2e/tsconfig.e2e.json",
-            "devServerTarget": "api-gub:serve"
+            "cypressConfig": "apps/api-hub-e2e/cypress.json",
+            "tsConfig": "apps/api-hub-e2e/tsconfig.e2e.json",
+            "devServerTarget": "api-hub:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "api-gub:serve:production"
+              "devServerTarget": "api-hub:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "apps/api-gub-e2e/tsconfig.e2e.json",
+            "tsConfig": "apps/api-hub-e2e/tsconfig.e2e.json",
             "exclude": ["**/node_modules/**"]
           }
         }

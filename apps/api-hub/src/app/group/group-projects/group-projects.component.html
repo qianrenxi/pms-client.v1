@@ -1,0 +1,29 @@
+<np-page-header title="项目">
+    <ng-template #actions>
+        <button (click)="null" nz-button nzType="primary">添加项目</button>
+      </ng-template>
+</np-page-header>
+
+<div class="page-content">
+    <nz-card>
+        <nz-list [nzDataSource]="projects" [nzRenderItem]="item">
+          <ng-template #item let-i>
+            <nz-list-item [nzActions]="[actions]">
+              <nz-list-item-meta
+                [nzTitle]="itemTitle"
+                [nzAvatar]="i.avatar"
+                [nzDescription]="i.description">
+                <ng-template #itemTitle>
+                  <a [routerLink]="['/project', i.id]" routerLinkActive="router-link-active" >{{i.name}}</a>
+                </ng-template>
+              </nz-list-item-meta>
+              <ng-template #actions>
+                <button (click)="actions" nz-button class="ml-2">成员</button>
+                <button (click)="actions" nz-button class="ml-2">编辑</button>
+                <button (click)="actions" nz-button class="ml-2">删除</button>
+              </ng-template>
+            </nz-list-item>
+          </ng-template>
+        </nz-list>
+      </nz-card>
+</div>
