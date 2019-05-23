@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 
 import { AppComponent } from './app.component';
-import { NxModule } from '@nrwl/nx';
 import { LayoutModule } from './layout/layout.module';
 import { AppRoutingModule } from './app-routing.module';
 import { PmsApiModule } from '@qianrenxi/pms-api';
@@ -25,7 +24,6 @@ registerLocaleData(zh);
     HttpClientModule,
     BrowserAnimationsModule,
     NgZorroAntdModule,
-    NxModule.forRoot(),
     LayoutModule,
     AppRoutingModule,
     PmsApiModule,

@@ -24,7 +24,12 @@
             "tsConfig": "apps/pms-web/tsconfig.app.json",
             "assets": [
               "apps/pms-web/src/favicon.ico",
-              "apps/pms-web/src/assets"
+              "apps/pms-web/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "apps/pms-web/src/styles/antd/theme.less",
@@ -147,7 +152,12 @@
             "tsConfig": "apps/api-gub/tsconfig.app.json",
             "assets": [
               "apps/api-gub/src/favicon.ico",
-              "apps/api-gub/src/assets"
+              "apps/api-gub/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "apps/pms-web/src/styles/antd/theme.less",
