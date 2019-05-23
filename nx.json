@@ -14,25 +14,13 @@
     "pms-web-e2e": {
       "tags": []
     },
-    "console-ui": {
+    "api-gub": {
+      "tags": []
+    },
+    "api-gub-e2e": {
       "tags": []
     },
     "pms-api": {
-      "tags": []
-    },
-    "ng-antd-pro": {
-      "tags": []
-    },
-    "pro-demo": {
-      "tags": []
-    },
-    "pro-demo-e2e": {
-      "tags": []
-    },
-    "api-hub": {
-      "tags": []
-    },
-    "api-hub-e2e": {
       "tags": []
     }
   }
